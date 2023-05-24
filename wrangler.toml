@@ -1,0 +1,13 @@
+name = "skmc-quiz"
+main = "./.output/server/index.mjs"
+workers_dev = true
+compatibility_date = "2022-09-10"
+account_id = "YOUR_CLOUDFLARE_ACCOUNT_ID"
+
+kv_namespaces = [
+    { binding = "players", id = "YOUR_PLAYERS_KV_NAMESPACE_ID", preview_id = "YOUR_PLAYERS_KV_PREVIEW_ID" },
+    { binding = "questions", id = "YOUR_QUESTIONS_KV_NAMESPACE_ID", preview_id = "YOUR_QUESTIONS_KV_PREVIEW_ID" }
+]
+
+[site]
+bucket = ".output/public"
