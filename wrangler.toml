@@ -1,0 +1,14 @@
+name = "skmc-quiz"
+main = "./.output/server/index.mjs"
+workers_dev = true
+compatibility_date = "2022-09-10"
+account_id = "74c084e1f74e7f2ad7dc2687d3ada85b"
+
+kv_namespaces = [
+    { binding = "players", id = "20a09cece9084fa99484a7f48e3a8a8a", preview_id = "3ee8f22066f6424db6e400ab2a3582b0" },
+    { binding = "questions", id = "48898127261e408480316f08dd2c479d", preview_id = "1217cebb5a0e4cec98d8903c8ae6b876" }
+]
+
+[site]
+bucket = ".output/public"
+

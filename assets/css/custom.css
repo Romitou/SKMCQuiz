@@ -1,0 +1,11 @@
+.skmc-bg {
+    background-image: url('/assets/pattern-dark.png');
+    background-size: 380px, contain;
+    background-position: center bottom;
+}
+
+.skmc-bg-dark {
+    background-image: url('/assets/pattern-white.png');
+    background-size: 380px, contain;
+    background-position: center bottom;
+}
