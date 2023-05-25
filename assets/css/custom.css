@@ -1,0 +1,15 @@
+@media (prefers-color-scheme: dark) {
+    .skmc-bg {
+        background-image: url('/assets/pattern-white.png');
+        background-size: 380px, contain;
+        background-position: center bottom;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .skmc-bg {
+        background-image: url('/assets/pattern-dark.png');
+        background-size: 380px, contain;
+        background-position: center bottom;
+    }
+}
