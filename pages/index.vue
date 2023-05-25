@@ -17,6 +17,7 @@
         </div>
         <NotAuthorized v-else-if="authStore.user === null" />
         <AlreadyPlayed v-else-if="gameStore.eligibility === 'ALREADY_PLAYED'" />
+        <Unavailable v-else-if="gameStore.eligibility === 'UNAVAILABLE'" />
         <GameOnboarding v-else-if="gameStore.eligibility === 'ELIGIBLE'" />
       </div>
     </template>
