@@ -61,7 +61,7 @@ router.post('/', defineEventHandler(async (event) => {
                     //         ],
                     //     },
                     // ],
-                    // flags: 64,
+                    flags: 64,
                 },
             };
         }
