@@ -8,6 +8,15 @@ export default defineEventHandler(async (event) => {
     const user = await getUser(event);
     const PLAYERS: KVNamespace = event.context.cloudflare.env.players;
 
+    const canStart = Date.now() > 1685174400000 && Date.now() < 1686420000000;
+    const isAdmin = user.discordId === '191495299884122112';
+    if (!isAdmin && !canStart) {
+        return {
+            status: 'UNAVAILABLE',
+            message: 'The game is not available at this time.',
+        };
+    }
+
     const playerSession = await PLAYERS.get(user.discordId, { type: 'json' }) as PrivateGameSession;
     if (playerSession) {
         throw createError({
