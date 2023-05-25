@@ -13,29 +13,12 @@
           <div class="text-white text-xl sm:text-2xl font-semibold font-raleway tracking-wider">Quiz</div>
         </div>
         <div v-if="authStore.user" class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-          <Menu as="div" class="ml-3 relative">
-            <div>
-              <MenuButton class="bg-sky-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-sky-800 focus:ring-white">
-                <img class="h-8 w-8 rounded-full" :src="authStore.user.avatarUrl" alt="" />
-              </MenuButton>
+          <div class="flex flex-row space-x-4 items-center">
+            <div class="text-white text-lg">{{ authStore.user?.name }}</div>
+            <div class="bg-sky-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-sky-800 focus:ring-white">
+              <img class="h-8 w-8 rounded-full" :src="authStore.user?.avatarUrl" alt="" />
             </div>
-            <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
-              <MenuItems class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-<!--                  <MenuItem v-slot="{ active }">-->
-<!--                    <NuxtLink to="/dashboard" :class="[active ? 'bg-zinc-100' : '', 'block px-4 py-2 text-sm text-zinc-700']">Espace contributeur</NuxtLink>-->
-<!--                  </MenuItem>-->
-<!--                  <MenuItem v-slot="{ active }">-->
-<!--                    <NuxtLink :to="`/profile/${authStore.user.id}-${authStore.user.name}`" :class="[active ? 'bg-zinc-100' : '', 'block px-4 py-2 text-sm text-zinc-700']">{{ $t('myProfile') }}</NuxtLink>-->
-<!--                  </MenuItem>-->
-<!--                  <MenuItem v-slot="{ active }">-->
-<!--                    <NuxtLink to="https://sk-accounts.romitou.fr/account" :class="[active ? 'bg-zinc-100' : '', 'block px-4 py-2 text-sm text-zinc-700']">{{ $t('mySettings') }}</NuxtLink>-->
-<!--                  </MenuItem>-->
-<!--                  <MenuItem v-slot="{ active }">-->
-<!--                    <NuxtLink to="https://sk-accounts.romitou.fr/auth/logout" :class="[active ? 'bg-zinc-100' : '', 'block px-4 py-2 text-sm text-zinc-700']">{{ $t('logout') }}</NuxtLink>-->
-<!--                  </MenuItem>-->
-              </MenuItems>
-            </transition>
-          </Menu>
+          </div>
         </div>
         <div v-else class="absolute inset-y-0 right-0 flex items-center pr-2">
           <div v-if="authStore.user === undefined">
