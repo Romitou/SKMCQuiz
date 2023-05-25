@@ -1,6 +1,6 @@
 import { createRouter, defineEventHandler, getHeaders, readBody, readRawBody, useBase } from 'h3';
 import type { H3Event } from 'h3';
-import { verifyKey } from 'discord-interactions';
+import { ButtonStyleTypes, MessageComponentTypes, verifyKey } from 'discord-interactions';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 
 const router = createRouter();
@@ -27,9 +27,9 @@ router.post('/', defineEventHandler(async (event) => {
         return {
             type: 1,
         };
-    } else if (type === 2) {
-        const { name } = data;
-        if (name === 'play') {
+    } else if (type === 2 || type === 3) {
+        const { name, custom_id } = data;
+        if (name === 'play' || custom_id === 'play') {
             const { jwtSecret } = useRuntimeConfig();
             const token = await jwt.sign({
                 discordId: body.member.user.id,
@@ -37,30 +37,29 @@ router.post('/', defineEventHandler(async (event) => {
                 avatarUrl: `https://cdn.discordapp.com/avatars/${body.member.user.id}/${body.member.user.avatar}.png`,
             }, jwtSecret);
 
-            console.log('name is play');
             return {
                 type: 4,
                 data: {
                     embeds: [
                         {
                             title: 'Skript-MC Quiz 2023',
-                            description: 'Préparez-vous à tester vos connaissances et à répondre à un **maximum de questions dans un temps imparti** ! Installez-vous confortablement et préparez-vous à un enchaînement de questions les unes plus dures que les autres... dans l\'objectif de **marquer un maximum de points et obtenir la première place** !\n\nBien que le quiz soit réalisable et adapté à tous les appareils, nous vous conseillons d\'**utiliser un appareil disposant d\'un grand écran** (ordinateur, tablette...). Nous vous recommandons d\'avoir une **connexion internet stable**.\n\nSi vous êtes prêts à vous confronter à notre quiz et aux membres de la communauté, il ne vous suffit plus qu\'à cliquer sur le bouton ci-dessous qui vous **connectera automatiquement à notre application internet**.\n\n'+token,
+                            description: 'Préparez-vous à tester vos connaissances et à répondre à un **maximum de questions dans un temps imparti** ! Installez-vous confortablement et préparez-vous à un enchaînement de questions les unes plus dures que les autres... dans l\'objectif de **marquer un maximum de points et obtenir la première place** !\n\nBien que le quiz soit réalisable et adapté à tous les appareils, nous vous conseillons d\'**utiliser un appareil disposant d\'un grand écran** (ordinateur, tablette...). Nous vous recommandons d\'avoir une **connexion internet stable**.\n\nSi vous êtes prêts à vous confronter à notre quiz et aux membres de la communauté, il ne vous suffit plus qu\'à cliquer sur le bouton ci-dessous qui vous **connectera automatiquement à notre application internet**.',
                             color: 2988250,
                         },
                     ],
-                    // components: [
-                    //     {
-                    //         type: 1,
-                    //         components: [
-                    //             {
-                    //                 type: 2,
-                    //                 style: 5,
-                    //                 label: 'Start',
-                    //                 url: `https://quiz.skript-mc.fr/`,
-                    //             },
-                    //         ],
-                    //     },
-                    // ],
+                    components: [
+                        {
+                            type: MessageComponentTypes.ACTION_ROW,
+                            components: [
+                                {
+                                    type: MessageComponentTypes.BUTTON,
+                                    style: ButtonStyleTypes.LINK,
+                                    label: 'Démarrer le quiz',
+                                    url: `https://quiz.skript-mc.fr/?token=${token}`,
+                                },
+                            ],
+                        },
+                    ],
                     flags: 64,
                 },
             };
