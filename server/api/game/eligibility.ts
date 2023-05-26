@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
 
     const playerProfile = await PLAYERS.get(user.discordId, { type: 'json' }) as PrivateGameSession;
 
-    const canStart = Date.now() > 1685174400000 && Date.now() < 1686420000000;
+    const canStart = Date.now() > 1685196000000 && Date.now() < 1686420000000;
     const isAdmin = user.discordId === '191495299884122112';
     if (!isAdmin && !canStart) {
         return {
