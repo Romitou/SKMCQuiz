@@ -1,0 +1,88 @@
+import type { H3Event } from 'h3';
+import type {
+    GameAnswer,
+    GameQuestion,
+    PrivateGameQuestion,
+} from '../../typings/game';
+
+export async function getRandomQuestion(event: H3Event, level: number): Promise<GameQuestion | undefined> {
+    const QUESTIONS: KVNamespace = event.context.cloudflare.env.questions;
+
+    const questions = await QUESTIONS.get(`level-${level}`, { type: 'json' }) as PrivateGameQuestion[];
+    if (!questions || questions.length === 0) {
+        return undefined;
+    }
+
+    const question = questions[Math.floor(Math.random() * questions.length)];
+    if (!question) {
+        return undefined;
+    }
+
+    return {
+        id: question.id,
+        content: question.content,
+        image: question.image,
+        answers: question.answers.map(a => ({
+            id: a.id,
+            content: a.content,
+            image: a.image,
+        } as GameAnswer))
+    } as GameQuestion;
+}
+
+export async function getQuestion(event: H3Event, id: string, level: number): Promise<GameQuestion | undefined> {
+    const QUESTIONS: KVNamespace = event.context.cloudflare.env.questions;
+
+    const questions = await QUESTIONS.get(`level-${level}`, { type: 'json' }) as PrivateGameQuestion[];
+    const question = questions.find(q => q.id === id);
+    if (!question)
+        return undefined;
+
+    return {
+        id: question.id,
+        content: question.content,
+        image: question.image,
+        answers: question.answers.map(a => ({
+            id: a.id,
+            content: a.content,
+            image: a.image,
+        } as GameAnswer))
+    } as GameQuestion;
+}
+
+export async function getPrivateQuestion(event: H3Event, id: string, level: number): Promise<PrivateGameQuestion | undefined> {
+    const QUESTIONS: KVNamespace = event.context.cloudflare.env.questions;
+
+    const questions = await QUESTIONS.get(`level-${level}`, { type: 'json' }) as PrivateGameQuestion[];
+    return questions.find(q => q.id === id);
+}
+
+
+export function getLevelScore(level: number): number {
+    if (level <= 0) {
+        throw createError({
+            statusCode: 500,
+            message: 'An error occurred while calculating your score.',
+        });
+    }
+
+    if (level === 1) {
+        return 2;
+    } else if (level <= 5) {
+        return 3;
+    } else if (level <= 9) {
+        return 4;
+    } else if (level <= 13) {
+        return 5;
+    } else if (level <= 15) {
+        return 6;
+    } else if (level <= 17) {
+        return 7;
+    } else if (level === 18) {
+        return 8;
+    } else if (level === 19) {
+        return 9;
+    } else {
+        return 10;
+    }
+}
