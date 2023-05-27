@@ -69,11 +69,11 @@ export const useGameStore = defineStore('game', {
 
             this.loading = false;
 
-            if (!useNuxtApp)
-                return;
-
-            const { $toast } = useNuxtApp();
-            $toast.info(`Réponse enregistrée. On passe à la question n°${this.session.answeredQuestions} !`);
+            // if (!useNuxtApp)
+            //     return;
+            //
+            // const { $toast } = useNuxtApp();
+            // $toast.info(`Réponse enregistrée. On passe à la question n°${this.session.answeredQuestions} !`);
         },
         async resumeGame() {
             const authStore = useAuthStore();
