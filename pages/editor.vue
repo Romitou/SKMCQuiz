@@ -88,7 +88,10 @@ const formatData = (data: GameQuestion) => {
     delete data.imageUrl;
   }
 
+  data.id = uid();
+
   data.answers.forEach((answer) => {
+    answer.id = uid();
     if (!answer.imageUrl) {
       delete answer.imageUrl;
     }
