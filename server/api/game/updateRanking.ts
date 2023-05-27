@@ -71,7 +71,7 @@ export default defineEventHandler(async (event) => {
 
 
     // Send the ranking to the bot
-    return await fetch('https://discord.com/api/v9/channels/1111338857930162257/messages/1112010204209479690', {
+    const response = await fetch('https://discord.com/api/v9/channels/1111338857930162257/messages/1112010204209479690', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -113,5 +113,7 @@ export default defineEventHandler(async (event) => {
             ],
         }),
     });
+
+    return await response.json();
 });
 
