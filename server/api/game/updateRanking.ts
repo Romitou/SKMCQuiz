@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
     for (const player of players.keys) {
         if (!player.metadata?.name || !player.metadata?.score)
             continue;
-        ranking[player.metadata?.name] = player.metadata?.score;
+        ranking[player.metadata?.name] = <number>player.metadata?.score;
     }
 
     // Sort the ranking

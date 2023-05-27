@@ -25,6 +25,9 @@ export interface PrivateGameSession {
     timings: Record<string, number>;
     currentQuestionId: string;
     remainingTime: number;
+    bonus: number;
+    name: string;
+    discordId: string;
     ip: string | undefined;
 }
 

@@ -79,7 +79,7 @@ export default defineEventHandler(async (event) => {
 
     if (currentLevel === 25) {
         playerSession.remainingTime = playerSession.startedAt + 1000 * 60 - Date.now();
-        await savePlayer(event, user, playerSession);
+        await savePlayer(event, playerSession);
         return {
             timeLeft: 0,
             answeredQuestions: 25,
@@ -96,7 +96,7 @@ export default defineEventHandler(async (event) => {
 
     playerSession.currentQuestionId = randomQuestion.id;
 
-    await savePlayer(event, user, playerSession);
+    await savePlayer(event, playerSession);
 
     return {
         question: randomQuestion,

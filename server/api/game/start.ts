@@ -43,9 +43,12 @@ export default defineEventHandler(async (event) => {
         timings: {},
         remainingTime: 0,
         ip: headers['cf-connecting-ip'],
+        name: user.name,
+        bonus: 0,
+        discordId: user.discordId,
     };
 
-    await savePlayer(event, user, newPlayerSession);
+    await savePlayer(event, newPlayerSession);
 
     return {
         question: randomQuestion,

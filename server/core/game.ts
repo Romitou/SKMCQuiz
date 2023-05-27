@@ -5,13 +5,13 @@ export function getTimeLeft(startedAt: number): number {
     return 60 - Math.floor((Date.now() - startedAt) / 1000);
 }
 
-export function savePlayer(event: H3Event, user: User, playerSession: PrivateGameSession): Promise<void> {
+export function savePlayer(event: H3Event, playerSession: PrivateGameSession): Promise<void> {
     const PLAYERS: KVNamespace = event.context.cloudflare.env.players;
 
-    return PLAYERS.put(user.discordId, JSON.stringify(playerSession), {
+    return PLAYERS.put(playerSession.discordId, JSON.stringify(playerSession), {
         metadata: {
             score: playerSession.score,
-            name: user.name,
+            name: playerSession.name,
         }
     });
 }
