@@ -19,6 +19,7 @@ export default defineEventHandler(async (event) => {
     for (const playerKey of players.keys) {
         const player = await PLAYERS.get(playerKey.name, { type: 'json' }) as PrivateGameSession;
         if (player) {
+            player.score = 0;
             let i = 0;
             for (const [questionId, answerId] of Object.values(player.answers)) {
                 const question = await getQuestion(event, questionId, ++i, true);
