@@ -114,6 +114,9 @@ export default defineEventHandler(async (event) => {
         }),
     });
 
+    console.log(response);
+    console.log(JSON.stringify(response));
+
     return await response.json();
 });
 
