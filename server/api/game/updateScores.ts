@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
         const player = await PLAYERS.get(playerKey.name, { type: 'json' }) as PrivateGameSession;
         if (player) {
             let i = 0;
-            for (const [questionId, answerId] of player.answers) {
+            for (const [questionId, answerId] of Object.values(player.answers)) {
                 const question = await getQuestion(event, questionId, ++i, true);
                 if (question) {
                     const score = getLevelScore(i);
