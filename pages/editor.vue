@@ -36,7 +36,7 @@
           <label class="label">
             <span class="label-text">Bonne réponse? n°{{i}}</span>
           </label>
-          <input @click="question.correctAnswerId = question.answers[i].id" type="checkbox" :checked="question.correctAnswerId === question.answers[i].id" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+          <input @click="correctAnswerPos = i" type="checkbox" :checked="correctAnswerPos === i" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
         </div>
       </div>
 
@@ -53,6 +53,7 @@ const uid = () => {
   return Math.random().toString(36).substr(2) + Date.now().toString(36);
 }
 
+const correctAnswerPos: Ref<number | undefined> = ref<number | undefined>(undefined);
 
 const question: Ref<GameQuestion> = ref<GameQuestion>({
   id: uid(),
@@ -96,6 +97,9 @@ const formatData = (data: GameQuestion) => {
       delete answer.imageUrl;
     }
   });
+
+  if (correctAnswerPos.value)
+    data.correctAnswerId = data.answers[correctAnswerPos.value].id;
 
   return data;
 }
