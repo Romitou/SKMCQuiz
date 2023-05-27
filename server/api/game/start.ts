@@ -8,7 +8,8 @@ export default defineEventHandler(async (event) => {
     const user = await getUser(event);
     const PLAYERS: KVNamespace = event.context.cloudflare.env.players;
 
-    const canStart = Date.now() > 1685210400000 && Date.now() < 1686420000000;
+    // const canStart = Date.now() > 1685210400000 && Date.now() < 1686420000000;
+    const canStart = false;
     const isAdmin = user.discordId === '191495299884122112';
     if (!isAdmin && !canStart) {
         return {
