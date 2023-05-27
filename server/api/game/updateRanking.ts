@@ -2,7 +2,13 @@ import { defineEventHandler, getHeaders } from 'h3';
 
 export default defineEventHandler(async (event) => {
     const headers = getHeaders(event);
-    const botAuthorization = headers['authorization'];
+    const authorization = headers['authorization'];
+    if (authorization !== 'zxgYYjyHK7Gu7sjfTGropV9cAieik299FYbouYq4px6wq3zJJuMLkHnJWtFXugaw')
+        throw createError({
+            statusCode: 403,
+            message: 'You are not authorized to access this resource.',
+        })
+    const botAuthorization = headers['bot-authorization'];
     if (!botAuthorization)
         throw createError({
             statusCode: 403,
@@ -65,7 +71,7 @@ export default defineEventHandler(async (event) => {
 
 
     // Send the ranking to the bot
-    await fetch('https://discord.com/api/v9/channels/1111338857930162257/messages/1112010204209479690', {
+    return await fetch('https://discord.com/api/v9/channels/1111338857930162257/messages/1112010204209479690', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -107,9 +113,5 @@ export default defineEventHandler(async (event) => {
             ],
         }),
     });
-
-    return {
-        ok: true,
-    };
 });
 
