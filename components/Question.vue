@@ -1,22 +1,22 @@
 <template>
   <div class="w-full py-4 px-10">
     <div class="flex flex-col items-center">
-      <div class="bg-gray-100 dark:bg-zinc-800 py-5 px-7 text-gray-200 text-3xl w-full rounded-xl shadow-lg text-center">
+      <div class="flex flex-col items-center justify-center bg-gray-100 dark:bg-zinc-800 py-5 px-7 text-gray-200 text-3xl w-full rounded-xl shadow-lg text-center">
         <p>{{ gameStore.session.question?.content }}</p>
         <div class="p-2 mt-5" v-if="gameStore.session.question?.image">
-          <img class="w-auto h-48" :src="`/questions/${gameStore.session.question?.id}.png`">
+          <img class="w-auto h-48 rounded" :src="`/questions/${gameStore.session.question?.id}.png`">
         </div>
       </div>
-      <div class="grid grid-cols-2 gap-9 w-full h-48 mt-10">
+      <div class="grid grid-cols-2 gap-9 w-full mt-10">
         <button
             v-for="(answer, i) in gameStore.session.question?.answers"
-            :class="`${gameStore.loading ? 'bg-gray-500 dark:bg-gray-800' : colors[i]} ${gameStore.loading ? '' : 'transition ease-in-out duration-200 transform hover:scale-105 hover:shadow-xl'} py-5 px-7 text-gray-200 text-2xl w-full rounded-xl shadow-lg h-24`"
+            :class="`${gameStore.loading ? 'bg-gray-500 dark:bg-gray-800' : colors[i]} ${gameStore.loading ? '' : 'transition ease-in-out duration-200 transform hover:scale-105 hover:shadow-xl'} py-5 px-7 text-gray-200 text-2xl w-full rounded-xl shadow-lg flex flex-col items-center justify-center`"
             :disabled="gameStore.loading"
             @click="answerQuestion(answer.id)"
         >
           <div>{{ answer.content }}</div>
           <div class="p-2" v-if="answer.image">
-            <img class="w-auto h-24" :src="`/answers/${answer.id}.png`">
+            <img class="w-auto h-24 rounded" :src="`/answers/${answer.id}.png`">
           </div>
         </button>
       </div>
