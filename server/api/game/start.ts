@@ -1,4 +1,4 @@
-import { createError, defineEventHandler } from 'h3';
+import { createError, defineEventHandler, getHeaders } from 'h3';
 import { getRandomQuestion } from '../../core/questions';
 import type { GameSession, PrivateGameSession } from '../../../typings/game';
 import { getUser } from '../../core/auth';
@@ -33,6 +33,7 @@ export default defineEventHandler(async (event) => {
         });
     }
 
+    const headers = getHeaders(event);
     const newPlayerSession: PrivateGameSession = {
         startedAt: Date.now(),
         score: 0,
@@ -40,6 +41,7 @@ export default defineEventHandler(async (event) => {
         currentQuestionId: randomQuestion.id,
         timings: {},
         remainingTime: 0,
+        ip: headers['cf-connecting-ip'],
     };
 
     await PLAYERS.put(user.discordId, JSON.stringify(newPlayerSession));

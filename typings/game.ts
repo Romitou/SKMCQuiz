@@ -25,6 +25,7 @@ export interface PrivateGameSession {
     timings: Record<string, number>;
     currentQuestionId: string;
     remainingTime: number;
+    ip: string | undefined;
 }
 
 export interface GameSession {
