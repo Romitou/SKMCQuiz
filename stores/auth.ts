@@ -14,6 +14,7 @@ export const useAuthStore = defineStore('auth', {
     }),
     getters: {
         isLoggedIn: (state: AuthState) => !!state.user,
+        avatarUrl: (state: AuthState) => `https://cdn.discordapp.com/avatars/${state.user?.discordId}/${state.user?.avatar}.png`,
     },
     actions: {
         async login() {

@@ -1,7 +1,7 @@
 export interface User {
     discordId: string;
     name: string;
-    avatarUrl: string;
+    avatar: string;
 }
 
 export interface GameQuestion {

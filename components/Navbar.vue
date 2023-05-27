@@ -16,7 +16,7 @@
           <div class="flex flex-row space-x-4 items-center">
             <div class="text-white text-lg">{{ authStore.user?.name }}</div>
             <div class="bg-sky-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-sky-800 focus:ring-white">
-              <img class="h-8 w-8 rounded-full" :src="authStore.user?.avatarUrl" alt="" />
+              <img class="h-8 w-8 rounded-full" :src="authStore.avatarUrl" alt="" />
             </div>
           </div>
         </div>

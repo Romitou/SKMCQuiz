@@ -34,7 +34,7 @@ router.post('/', defineEventHandler(async (event) => {
             const token = await jwt.sign({
                 discordId: body.member.user.id,
                 name: body.member.user.username,
-                avatarUrl: `https://cdn.discordapp.com/avatars/${body.member.user.id}/${body.member.user.avatar}.png`,
+                avatar: body.member.user.avatar,
             }, jwtSecret);
 
             return {
