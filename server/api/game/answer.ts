@@ -79,6 +79,7 @@ export default defineEventHandler(async (event) => {
 
     if (currentLevel === 25) {
         playerSession.remainingTime = playerSession.startedAt + 1000 * 60 - Date.now();
+        await PLAYERS.put(user.discordId, JSON.stringify(playerSession));
         return {
             timeLeft: 0,
             answeredQuestions: 25,
