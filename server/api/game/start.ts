@@ -2,13 +2,13 @@ import { createError, defineEventHandler, getHeaders } from 'h3';
 import { getRandomQuestion } from '../../core/questions';
 import type { GameSession, PrivateGameSession } from '../../../typings/game';
 import { getUser } from '../../core/auth';
-import { getTimeLeft } from '../../core/game';
+import { getTimeLeft, savePlayer } from '../../core/game';
 
 export default defineEventHandler(async (event) => {
     const user = await getUser(event);
     const PLAYERS: KVNamespace = event.context.cloudflare.env.players;
 
-    const canStart = Date.now() > 1685196000000 && Date.now() < 1686420000000;
+    const canStart = Date.now() > 1685210400000 && Date.now() < 1686420000000;
     const isAdmin = user.discordId === '191495299884122112';
     if (!isAdmin && !canStart) {
         return {
@@ -44,7 +44,7 @@ export default defineEventHandler(async (event) => {
         ip: headers['cf-connecting-ip'],
     };
 
-    await PLAYERS.put(user.discordId, JSON.stringify(newPlayerSession));
+    await savePlayer(event, user, newPlayerSession);
 
     return {
         question: randomQuestion,

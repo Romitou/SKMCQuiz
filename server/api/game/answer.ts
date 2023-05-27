@@ -2,7 +2,7 @@ import { createError, defineEventHandler, readRawBody } from 'h3';
 import { getLevelScore, getQuestion, getRandomQuestion } from '../../core/questions';
 import type { GameSession, PrivateGameSession } from '../../../typings/game';
 import { getUser } from '../../core/auth';
-import { getTimeLeft } from '../../core/game';
+import { getTimeLeft, savePlayer } from '../../core/game';
 
 export default defineEventHandler(async (event) => {
     const user = await getUser(event);
@@ -79,7 +79,7 @@ export default defineEventHandler(async (event) => {
 
     if (currentLevel === 25) {
         playerSession.remainingTime = playerSession.startedAt + 1000 * 60 - Date.now();
-        await PLAYERS.put(user.discordId, JSON.stringify(playerSession));
+        await savePlayer(event, user, playerSession);
         return {
             timeLeft: 0,
             answeredQuestions: 25,
@@ -96,7 +96,7 @@ export default defineEventHandler(async (event) => {
 
     playerSession.currentQuestionId = randomQuestion.id;
 
-    await PLAYERS.put(user.discordId, JSON.stringify(playerSession));
+    await savePlayer(event, user, playerSession);
 
     return {
         question: randomQuestion,
