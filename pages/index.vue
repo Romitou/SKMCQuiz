@@ -6,7 +6,7 @@
           class="mt-3"
           :answered-questions="gameStore.session.answeredQuestions"
           :time-left="gameStore.session.timeLeft"
-          :score="gameStore.session.score"
+          :loading="gameStore.loading"
       />
       <Question />
     </template>

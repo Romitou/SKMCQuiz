@@ -9,6 +9,11 @@
         </span>
       </div>
       <div class="flex flex-row items-center space-x-2 h-10 bg-zinc-700 px-5 py-1 rounded-lg shadow text-gray-200">
+        <div class="flex flex-row items-center space-x-2 h-10 bg-zinc-700 px-5 py-1 rounded-lg shadow text-gray-200">
+          <img v-if="loading" class="h-6" src="~assets/loading.svg" alt="Loading...">
+        </div>
+      </div>
+      <div class="flex flex-row items-center space-x-2 h-10 bg-zinc-700 px-5 py-1 rounded-lg shadow text-gray-200">
         <ClockIcon class="h-6 w-6" />
         <span class="countdown font-mono text-2xl" v-if="timeLeft >= 0">
           <span :style="{'--value':timeLeft}"></span>
@@ -28,7 +33,7 @@
 <script setup lang="ts">
 import {ClockIcon, HashtagIcon} from '@heroicons/vue/24/outline';
 
-const { answeredQuestions, timeLeft } = defineProps({
+const { answeredQuestions, timeLeft, loading } = defineProps({
   answeredQuestions: {
     type: Number,
     required: true,
@@ -37,6 +42,10 @@ const { answeredQuestions, timeLeft } = defineProps({
     type: Number,
     required: true,
   },
+  loading: {
+    type: Boolean,
+    required: true,
+  }
 });
 </script>
 

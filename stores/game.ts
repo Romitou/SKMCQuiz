@@ -14,6 +14,7 @@ export interface GameState {
     eligibility: EligibilityStatus | undefined;
     inGame: boolean;
     endScreen: boolean;
+    loading: boolean;
 }
 
 export const useGameStore = defineStore('game', {
@@ -26,6 +27,7 @@ export const useGameStore = defineStore('game', {
         eligibility: undefined,
         inGame: false,
         endScreen: false,
+        loading: false,
     }),
     getters: {
     },
@@ -53,6 +55,7 @@ export const useGameStore = defineStore('game', {
             }).catch(console.error).then((response: AxiosResponse<GameSession>) => response.data);
         },
         async answerQuestion(answerId: string) {
+            this.loading = true;
             const authStore = useAuthStore();
 
             this.session = await axios.post('/api/game/answer', {
@@ -63,6 +66,8 @@ export const useGameStore = defineStore('game', {
                     Authorization: `Bearer ${authStore.authToken}`,
                 },
             }).catch(console.error).then((response: AxiosResponse<GameSession>) => response.data);
+
+            this.loading = false;
 
             if (!useNuxtApp)
                 return;
