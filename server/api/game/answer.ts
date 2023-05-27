@@ -70,7 +70,7 @@ export default defineEventHandler(async (event) => {
     if (isCorrect) {
         playerSession.score += score;
     } else {
-        const toRemove = Math.floor(score / 4);
+        const toRemove = Math.floor(score / 2);
         playerSession.score -= toRemove;
     }
 
