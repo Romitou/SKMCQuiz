@@ -4,7 +4,7 @@
       <div class="flex flex-col items-center justify-center bg-gray-100 dark:bg-zinc-800 py-5 px-7 text-gray-200 text-3xl w-full rounded-xl shadow-lg text-center">
         <p>{{ gameStore.session.question?.content }}</p>
         <div class="p-2 mt-5" v-if="gameStore.session.question?.image">
-          <img class="w-auto h-48 rounded" :src="`/questions/${gameStore.session.question?.id}.png`">
+          <img class="h-48 object-cover rounded" :src="`/questions/${gameStore.session.question?.id}.png`">
         </div>
       </div>
       <div class="grid grid-cols-2 gap-9 w-full mt-10">
@@ -16,7 +16,7 @@
         >
           <div>{{ answer.content }}</div>
           <div class="p-2" v-if="answer.image">
-            <img class="w-auto h-24 rounded" :src="`/answers/${answer.id}.png`">
+            <img class="w-auto h-24 object-cover rounded" :src="`/answers/${answer.id}.png`">
           </div>
         </button>
       </div>

@@ -10,6 +10,9 @@ export async function getRandomQuestion(event: H3Event, level: number): Promise<
     }
 
     const question = questions[Math.floor(Math.random() * questions.length)];
+    if (!question) {
+        return undefined;
+    }
 
     question.correctAnswerId = undefined;
 
