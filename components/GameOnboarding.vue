@@ -10,7 +10,7 @@
           <p>⌛ Le quiz va durer <strong>une minute</strong>, durant laquelle vous pourrez répondre à un <strong>maximum de questions</strong>. Il n'est pas possible de recommencer, retourner en arrière, sauter une question ou mettre en pause le quiz.</p>
           <p>⚙️ Une barre d'information sera affichée <strong>en haut de votre écran</strong> comme celle-ci. Elle vous renseignera sur le nombre de question répondues (hashtag) et votre temps restant (horloge) : </p>
         </div>
-        <div class="bg-zinc-900 rounded-lg mt-3">
+        <div class="dark:bg-zinc-900 bg-gray-200 rounded-lg mt-3">
           <QuizBar
               :answered-questions="answeredQuestions"
               :time-left="timeLeft"
@@ -18,7 +18,7 @@
           />
         </div>
         <div class="text-center mt-5">
-          <button class="btn bg-sky-700 hover:bg-sky-800 border-none text-gray-200" @click="start()">Démarrer maintenant le quiz</button>
+          <button class="btn bg-sky-500 dark:bg-sky-700 hover:bg-sky-600 dark:hover:bg-sky-800 border-none text-gray-100 dark:text-gray-200" @click="start()">Démarrer maintenant le quiz</button>
         </div>
       </div>
     </div>

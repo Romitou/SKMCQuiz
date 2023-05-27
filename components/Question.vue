@@ -10,7 +10,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-9 w-full mt-10">
         <button
             v-for="(answer, i) in gameStore.session.question?.answers"
-            :class="`${gameStore.loading ? 'bg-gray-500 dark:bg-gray-800' : colors[i]} ${gameStore.loading ? '' : 'transition ease-in-out duration-200 transform hover:scale-105 hover:shadow-xl'} ${answer.image ? 'py-1 px-3': 'py-5 px-7'} text-gray-800 dark:text-gray-200 text-2xl w-full rounded-xl shadow-lg flex flex-col items-center justify-center`"
+            :class="`${gameStore.loading ? 'bg-gray-300 dark:bg-gray-800' : colors[i]} ${gameStore.loading ? '' : 'transition ease-in-out duration-200 transform hover:scale-105 hover:shadow-xl'} ${answer.image ? 'py-1 px-3': 'py-5 px-7'} text-gray-800 dark:text-gray-200 text-2xl w-full rounded-xl shadow-lg flex flex-col items-center justify-center`"
             :disabled="gameStore.loading"
             @click="answerQuestion(answer.id)"
         >
@@ -30,10 +30,10 @@ import { useGameStore } from '~/stores/game';
 const gameStore = useGameStore();
 
 const colors = [
-  'bg-red-500 dark:bg-red-800',
-  'bg-blue-500 dark:bg-blue-800',
-  'bg-yellow-500 dark:bg-yellow-800',
-  'bg-green-500 dark:bg-green-800',
+  'bg-red-300 dark:bg-red-800',
+  'bg-blue-300 dark:bg-blue-800',
+  'bg-yellow-300 dark:bg-yellow-800',
+  'bg-green-300 dark:bg-green-800',
 ]
 
 const answerQuestion = (answerId: string) => {
