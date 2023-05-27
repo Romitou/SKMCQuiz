@@ -81,12 +81,14 @@ export default defineEventHandler(async (event) => {
             embeds: [
                 {
                     title: 'Classement du Skript-MC Quiz 2023',
-                    description: 'Retrouvez ci-dessous le classement de tous les joueurs ayant participé au Skript-MC Quiz 2023. Les scores ne sont pas rendus publics avant la fin de l\'événement. Attention : les catégories de récompenses étant dépendantes de la position des joueurs dans le classement, il est fortement possible que votre position évolue au cours de l\'événement.',
+                    description: '🚀 Retrouvez ci-dessous le classement de tous les joueurs ayant participé au Skript-MC Quiz 2023. Les scores ne sont pas rendus publics avant la fin de l\'événement.\n\n📈 Attention : les catégories de récompenses étant dépendantes de la position des joueurs dans le classement, il est fortement possible que votre position évolue au cours de l\'événement.',
+                    color: 2988250,
                     image: {
-                        url: 'https://quiz.skript-mc/prizes.png'
+                        url: 'https://quiz.skript-mc.fr/prizes.png'
                     }
                 },
                 {
+                    color: 2988250,
                     fields: [
                         {
                             name: '🏅 Catégorie étoile',
