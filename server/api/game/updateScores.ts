@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
         if (player) {
             player.score = 0;
             let i = 0;
-            for (const [questionId, answerId] of Object.values(player.answers)) {
+            for (const [questionId, answerId] of Object.entries(player.answers)) {
                 const question = await getQuestion(event, questionId, ++i, true);
                 if (question) {
                     const score = getLevelScore(i);
