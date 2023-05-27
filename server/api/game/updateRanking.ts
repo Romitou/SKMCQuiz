@@ -38,24 +38,24 @@ export default defineEventHandler(async (event) => {
         top15string = 'Personne :(';
 
     // Get the top 30% and remove them from the ranking
-    const top30 = sortedRanking.slice(0, Math.ceil(sortedRanking.length * 0.3));
-    sortedRanking = sortedRanking.slice(Math.ceil(sortedRanking.length * 0.3));
+    const top30 = sortedRanking.slice(0, Math.ceil(sortedRanking.length * 0.15));
+    sortedRanking = sortedRanking.slice(Math.ceil(sortedRanking.length * 0.15));
 
     let top30string = top30.map(([name, _]) => `:white_small_square: ${name}`).join('\n');
     if (top30string.length === 0)
         top30string = 'Personne :(';
 
     // Get the top 45% and remove them from the ranking
-    const top45 = sortedRanking.slice(0, Math.ceil(sortedRanking.length * 0.45));
-    sortedRanking = sortedRanking.slice(Math.ceil(sortedRanking.length * 0.45));
+    const top45 = sortedRanking.slice(0, Math.ceil(sortedRanking.length * 0.15));
+    sortedRanking = sortedRanking.slice(Math.ceil(sortedRanking.length * 0.15));
 
     let top45string = top45.map(([name, _]) => `:white_small_square: ${name}`).join('\n');
     if (top45string.length === 0)
         top45string = 'Personne :(';
 
     // Get the top 70% and remove them from the ranking
-    const top70 = sortedRanking.slice(0, Math.ceil(sortedRanking.length * 0.7));
-    sortedRanking = sortedRanking.slice(Math.ceil(sortedRanking.length * 0.7));
+    const top70 = sortedRanking.slice(0, Math.ceil(sortedRanking.length * 0.25));
+    sortedRanking = sortedRanking.slice(Math.ceil(sortedRanking.length * 0.25));
 
     let top70string = top70.map(([name, _]) => `:white_small_square: ${name}`).join('\n');
     if (top70string.length === 0)
