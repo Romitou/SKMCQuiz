@@ -30,36 +30,36 @@ export default defineEventHandler(async (event) => {
     const sortedRanking = Object.entries(ranking).sort(([, a], [, b]) => b - a);
 
     // Get the top 15% and remove them from the ranking
-    const top15 = sortedRanking.slice(0, Math.floor(sortedRanking.length * 0.15));
+    const top15 = sortedRanking.slice(0, Math.ceil(sortedRanking.length * 0.15));
     for (const [name] of top15) {
-        delete ranking[name];
+        delete sortedRanking[name];
     }
     let top15string = top15.map(([name, _]) => `🏅 ${name}`).join('\n');
     if (top15string.length === 0)
         top15string = 'Personne :(';
 
     // Get the top 30% and remove them from the ranking
-    const top30 = sortedRanking.slice(0, Math.floor(sortedRanking.length * 0.3));
+    const top30 = sortedRanking.slice(0, Math.ceil(sortedRanking.length * 0.3));
     for (const [name] of top30) {
-        delete ranking[name];
+        delete sortedRanking[name];
     }
     let top30string = top30.map(([name, _]) => `🥇 ${name}`).join('\n');
     if (top30string.length === 0)
         top30string = 'Personne :(';
 
     // Get the top 45% and remove them from the ranking
-    const top45 = sortedRanking.slice(0, Math.floor(sortedRanking.length * 0.45));
+    const top45 = sortedRanking.slice(0, Math.ceil(sortedRanking.length * 0.45));
     for (const [name] of top45) {
-        delete ranking[name];
+        delete sortedRanking[name];
     }
     let top45string = top45.map(([name, _]) => `🥈 ${name}`).join('\n');
     if (top45string.length === 0)
         top45string = 'Personne :(';
 
     // Get the top 70% and remove them from the ranking
-    const top70 = sortedRanking.slice(0, Math.floor(sortedRanking.length * 0.7));
+    const top70 = sortedRanking.slice(0, Math.ceil(sortedRanking.length * 0.7));
     for (const [name] of top70) {
-        delete ranking[name];
+        delete sortedRanking[name];
     }
     let top70string = top70.map(([name, _]) => `🥉 ${name}`).join('\n');
     if (top70string.length === 0)
