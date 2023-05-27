@@ -47,8 +47,8 @@ export async function getUser(event: H3Event): Promise<User> {
 
     const jwtPayload = jwt.decode(authToken);
 
-    const { discordId, name, avatarUrl } = jwtPayload.payload;
-    if (!discordId || !name || !avatarUrl) {
+    const { discordId, name, avatar } = jwtPayload.payload;
+    if (!discordId || !name || !avatar) {
         throw createError({
             statusCode: 500,
             statusMessage: 'Your authorization token cannot be correctly decoded.',
@@ -58,6 +58,6 @@ export async function getUser(event: H3Event): Promise<User> {
     return {
         discordId,
         name,
-        avatarUrl,
+        avatar,
     };
 }
