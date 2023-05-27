@@ -26,12 +26,20 @@ export default defineEventHandler(async (event) => {
     }
 
     const randomQuestion = await getRandomQuestion(event, 1);
+    if (!randomQuestion) {
+        throw createError({
+            statusCode: 404,
+            message: 'Question not found.',
+        });
+    }
 
     const newPlayerSession: PrivateGameSession = {
         startedAt: Date.now(),
         score: 0,
         answers: {},
         currentQuestionId: randomQuestion.id,
+        timings: {},
+        remainingTime: 0,
     };
 
     await PLAYERS.put(user.discordId, JSON.stringify(newPlayerSession));
