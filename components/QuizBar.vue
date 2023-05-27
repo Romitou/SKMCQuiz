@@ -8,10 +8,8 @@
           <span :style="{'--value':answeredQuestions+1}"></span>
         </span>
       </div>
-      <div class="flex flex-row items-center space-x-2 h-10 bg-zinc-700 px-5 py-1 rounded-lg shadow text-gray-200">
-        <div class="flex flex-row items-center space-x-2 h-10 bg-zinc-700 px-5 py-1 rounded-lg shadow text-gray-200">
-          <img v-if="loading" class="h-6" src="~assets/loading.svg" alt="Loading...">
-        </div>
+      <div v-if="loading" class="flex flex-row items-center space-x-2 h-10 bg-zinc-700 px-5 py-1 rounded-lg shadow text-gray-200">
+        <img class="h-6" src="~assets/loading.svg" alt="Loading...">
       </div>
       <div class="flex flex-row items-center space-x-2 h-10 bg-zinc-700 px-5 py-1 rounded-lg shadow text-gray-200">
         <ClockIcon class="h-6 w-6" />

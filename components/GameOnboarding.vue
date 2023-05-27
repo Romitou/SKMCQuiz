@@ -8,7 +8,7 @@
           <p>📡 Nous vous recommandons d'utiliser un appareil disposant <strong>d'un grand écran</strong> (bien que l'application soit adaptée aux mobiles) et de vous assurer d'avoir une <strong>connexion internet stable</strong>.</p>
           <p>📊 Chaque question étant <strong>plus compliquée que la précédente</strong>, le nombre de points mis en jeu par question <strong>augmente de la même manière</strong>. Vous remporterez ces points en cas de bonne réponse mais vous <strong>perdrez le quart</strong> des points mis en jeu en cas de mauvaise réponse.</p>
           <p>⌛ Le quiz va durer <strong>une minute</strong>, durant laquelle vous pourrez répondre à un <strong>maximum de questions</strong>. Il n'est pas possible de recommencer, retourner en arrière, sauter une question ou mettre en pause le quiz.</p>
-          <p>⚙️ Une barre d'information sera affichée <strong>en haut de votre écran</strong> comme celle-ci. Elle vous renseignera sur le nombre de question répondues (hashtag), votre score actuel (étoile) et votre temps restant (horloge) : </p>
+          <p>⚙️ Une barre d'information sera affichée <strong>en haut de votre écran</strong> comme celle-ci. Elle vous renseignera sur le nombre de question répondues (hashtag) et votre temps restant (horloge) : </p>
         </div>
         <div class="bg-zinc-900 rounded-lg mt-3">
           <QuizBar
