@@ -2,7 +2,7 @@
   <div class="bg-zinc-800 p-5 bg-zinc-800 text-gray-300 rounded-lg shadow-lg" v-if="!wantsToPlay">
     <div class="hero-content">
       <div class="max-w-3xl">
-        <h1 class="text-3xl font-bold">Bienvenue, {{authStore.user?.name}} !</h1>
+        <h1 class="text-3xl font-bold">Bienvenue, {{authStore.user?.name}}</h1>
         <div class="pt-6 space-y-3">
           <p>👋 Bienvenue sur notre application Skript-MC Quiz sur laquelle vous pourrez tester vos connaissances et <strong>tenter de remporter des cadeaux</strong> conformément à la présentation de l'événement !</p>
           <p>📡 Nous vous recommandons d'utiliser un appareil disposant <strong>d'un grand écran</strong> (bien que l'application soit adaptée aux mobiles) et de vous assurer d'avoir une <strong>connexion internet stable</strong>.</p>
@@ -14,6 +14,7 @@
           <QuizBar
               :answered-questions="answeredQuestions"
               :time-left="timeLeft"
+              :loading="false"
           />
         </div>
         <div class="text-center mt-5">

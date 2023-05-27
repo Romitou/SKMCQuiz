@@ -7,7 +7,7 @@
       <div class="grid grid-cols-2 gap-9 w-full h-48 mt-10">
         <button
             v-for="(answer, i) in gameStore.session.question?.answers"
-            :class="`${gameStore.loading ? 'bg-gray-500 dark:bg-gray-800' : colors[i]} py-5 px-7 text-gray-200 text-2xl w-full rounded-xl shadow-lg h-24 transition ease-in-out duration-200 transform hover:scale-105 hover:shadow-xl`"
+            :class="`${gameStore.loading ? 'bg-gray-500 dark:bg-gray-800' : colors[i]} ${gameStore.loading ? '' : 'transition ease-in-out duration-200 transform hover:scale-105 hover:shadow-xl'} py-5 px-7 text-gray-200 text-2xl w-full rounded-xl shadow-lg h-24`"
             v-text="answer.content"
             :disabled="gameStore.loading"
             @click="answerQuestion(answer.id)"
