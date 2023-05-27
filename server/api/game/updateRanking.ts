@@ -72,7 +72,7 @@ export default defineEventHandler(async (event) => {
 
     // Send the ranking to the bot
     const response = await fetch('https://discord.com/api/v9/channels/1111338857930162257/messages/1112010204209479690', {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': botAuthorization,
