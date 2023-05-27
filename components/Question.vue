@@ -7,15 +7,15 @@
           <img class="h-full w-full object-contain rounded" :src="`/questions/${gameStore.session.question?.id}.png`">
         </div>
       </div>
-      <div class="grid grid-cols-2 gap-9 w-full mt-10">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-9 w-full mt-10">
         <button
             v-for="(answer, i) in gameStore.session.question?.answers"
-            :class="`${gameStore.loading ? 'bg-gray-500 dark:bg-gray-800' : colors[i]} ${gameStore.loading ? '' : 'transition ease-in-out duration-200 transform hover:scale-105 hover:shadow-xl'} py-5 px-7 text-gray-200 text-2xl w-full rounded-xl shadow-lg flex flex-col items-center justify-center`"
+            :class="`${gameStore.loading ? 'bg-gray-500 dark:bg-gray-800' : colors[i]} ${gameStore.loading ? '' : 'transition ease-in-out duration-200 transform hover:scale-105 hover:shadow-xl'} ${answer.image ? 'py-1 px-3': 'py-5 px-7'} text-gray-200 text-2xl w-full rounded-xl shadow-lg flex flex-col items-center justify-center`"
             :disabled="gameStore.loading"
             @click="answerQuestion(answer.id)"
         >
           <div>{{ answer.content }}</div>
-          <div class="p-2 h-24" v-if="answer.image">
+          <div class="h-48" v-if="answer.image">
             <img class="h-full w-full object-contain rounded" :src="`/answers/${answer.id}.png`">
           </div>
         </button>
