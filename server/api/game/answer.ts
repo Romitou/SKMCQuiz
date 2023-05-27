@@ -71,12 +71,28 @@ export default defineEventHandler(async (event) => {
         playerSession.score += score;
     } else {
         const toRemove = Math.floor(score / 4);
-        playerSession.score = Math.max(0, playerSession.score - toRemove);
+        playerSession.score -= toRemove;
     }
 
     playerSession.answers[questionId] = answerId;
+    playerSession.timings[questionId] = Date.now();
+
+    if (currentLevel === 25) {
+        playerSession.remainingTime = playerSession.startedAt + 1000 * 60 - Date.now();
+        return {
+            timeLeft: 0,
+            answeredQuestions: 25,
+        }
+    }
 
     const randomQuestion = await getRandomQuestion(event, currentLevel + 1);
+    if (!randomQuestion) {
+        throw createError({
+            statusCode: 404,
+            message: 'Question not found.',
+        });
+    }
+
     playerSession.currentQuestionId = randomQuestion.id;
 
     await PLAYERS.put(user.discordId, JSON.stringify(playerSession));

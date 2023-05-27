@@ -14,7 +14,7 @@
         <label class="label">
           <span class="label-text">Image de la question</span>
         </label>
-        <input v-model="question.imageUrl" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+        <input v-model="question.image" type="checkbox" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
       </div>
 
       <div v-for="i in [0, 1, 2, 3]" class="flex flex-row space-x-4">
@@ -29,7 +29,7 @@
           <label class="label">
             <span class="label-text">Image réponse n°{{i}}</span>
           </label>
-          <input v-model="question.answers[i].imageUrl" type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+          <input v-model="question.answers[i].image" type="checkbox" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
         </div>
 
         <div class="form-control w-full max-w-xs mb-5">
@@ -58,43 +58,43 @@ const correctAnswerPos: Ref<number | undefined> = ref<number | undefined>(undefi
 const question: Ref<GameQuestion> = ref<GameQuestion>({
   id: uid(),
   content: '',
-  imageUrl: '',
+  image: false,
   correctAnswerId: undefined,
   answers: [
     {
       id: uid(),
       content: '',
-      imageUrl: ''
+      image: false
     },
     {
       id: uid(),
       content: '',
-      imageUrl: ''
+      image: false
     },
     {
       id: uid(),
       content: '',
-      imageUrl: ''
+      image: false
     },
     {
       id: uid(),
       content: '',
-      imageUrl: ''
+      image: false
     }
   ]
 });
 
 const formatData = (data: GameQuestion) => {
-  if (!data.imageUrl) {
-    delete data.imageUrl;
+  if (!data.image) {
+    delete data.image;
   }
 
   data.id = uid();
 
   data.answers.forEach((answer) => {
     answer.id = uid();
-    if (!answer.imageUrl) {
-      delete answer.imageUrl;
+    if (!answer.image) {
+      delete answer.image;
     }
   });
 

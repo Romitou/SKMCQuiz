@@ -1,10 +1,14 @@
 import type { H3Event } from 'h3';
 import type { GameQuestion } from '../../typings/game';
 
-export async function getRandomQuestion(event: H3Event, level: number): Promise<GameQuestion> {
+export async function getRandomQuestion(event: H3Event, level: number): Promise<GameQuestion | undefined> {
     const QUESTIONS: KVNamespace = event.context.cloudflare.env.questions;
 
     const questions = await QUESTIONS.get(`level-${level}`, { type: 'json' }) as GameQuestion[];
+    if (!questions || questions.length === 0) {
+        return undefined;
+    }
+
     const question = questions[Math.floor(Math.random() * questions.length)];
 
     question.correctAnswerId = undefined;
