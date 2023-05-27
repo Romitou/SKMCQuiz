@@ -34,7 +34,7 @@ export default defineEventHandler(async (event) => {
     for (const [name] of top15) {
         delete sortedRanking[name];
     }
-    let top15string = top15.map(([name, _]) => `🏅 ${name}`).join('\n');
+    let top15string = top15.map(([name, _]) => `:white_small_square: ${name}`).join('\n');
     if (top15string.length === 0)
         top15string = 'Personne :(';
 
@@ -43,7 +43,7 @@ export default defineEventHandler(async (event) => {
     for (const [name] of top30) {
         delete sortedRanking[name];
     }
-    let top30string = top30.map(([name, _]) => `🥇 ${name}`).join('\n');
+    let top30string = top30.map(([name, _]) => `:white_small_square: ${name}`).join('\n');
     if (top30string.length === 0)
         top30string = 'Personne :(';
 
@@ -52,7 +52,7 @@ export default defineEventHandler(async (event) => {
     for (const [name] of top45) {
         delete sortedRanking[name];
     }
-    let top45string = top45.map(([name, _]) => `🥈 ${name}`).join('\n');
+    let top45string = top45.map(([name, _]) => `:white_small_square: ${name}`).join('\n');
     if (top45string.length === 0)
         top45string = 'Personne :(';
 
@@ -61,11 +61,11 @@ export default defineEventHandler(async (event) => {
     for (const [name] of top70) {
         delete sortedRanking[name];
     }
-    let top70string = top70.map(([name, _]) => `🥉 ${name}`).join('\n');
+    let top70string = top70.map(([name, _]) => `:white_small_square: ${name}`).join('\n');
     if (top70string.length === 0)
         top70string = 'Personne :(';
 
-    let lastString = sortedRanking.map(([name, _]) => `◻ ${name}`).join('\n');
+    let lastString = sortedRanking.map(([name, _]) => `:white_small_square: ${name}`).join('\n');
     if (lastString.length === 0)
         lastString = 'Personne :(';
 
