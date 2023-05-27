@@ -13,6 +13,7 @@ export interface GameState {
     session: GameSession;
     eligibility: EligibilityStatus | undefined;
     inGame: boolean;
+    endScreen: boolean;
 }
 
 export const useGameStore = defineStore('game', {
@@ -20,11 +21,11 @@ export const useGameStore = defineStore('game', {
         session: {
             question: undefined,
             timeLeft: undefined,
-            score: undefined,
             answeredQuestions: undefined,
         },
         eligibility: undefined,
         inGame: false,
+        endScreen: false,
     }),
     getters: {
     },
@@ -62,6 +63,12 @@ export const useGameStore = defineStore('game', {
                     Authorization: `Bearer ${authStore.authToken}`,
                 },
             }).catch(console.error).then((response: AxiosResponse<GameSession>) => response.data);
+
+            if (!useNuxtApp)
+                return;
+
+            const { $toast } = useNuxtApp();
+            $toast.info(`Réponse enregistrée. On passe à la question n°${this.session.answeredQuestions} !`);
         },
         async resumeGame() {
             const authStore = useAuthStore();
@@ -72,6 +79,10 @@ export const useGameStore = defineStore('game', {
                     Authorization: `Bearer ${authStore.authToken}`,
                 },
             }).catch(console.error).then((response: AxiosResponse<GameSession>) => response.data);
+        },
+        async endGame() {
+            this.inGame = false;
+            this.endScreen = true;
         }
     }
 })

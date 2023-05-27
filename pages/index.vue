@@ -16,6 +16,7 @@
           <img class="h-20" src="~assets/loading.svg" alt="Loading...">
         </div>
         <NotAuthorized v-else-if="authStore.user === null" />
+        <GameEnd v-else-if="gameStore.endScreen" />
         <AlreadyPlayed v-else-if="gameStore.eligibility === 'ALREADY_PLAYED'" />
         <Unavailable v-else-if="gameStore.eligibility === 'UNAVAILABLE'" />
         <GameOnboarding v-else-if="gameStore.eligibility === 'ELIGIBLE'" />
@@ -42,8 +43,9 @@ const gameStore = useGameStore();
 const interval = setInterval(() => {
   if (gameStore.inGame) {
     gameStore.session.timeLeft--;
-    if (gameStore.session.timeLeft === 0) {
-      // gameStore.endGame();
+    if (gameStore.session.timeLeft < 0) {
+      gameStore.endGame();
+      clearInterval(interval);
     }
   }
 }, 1000);

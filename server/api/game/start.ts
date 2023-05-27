@@ -39,7 +39,6 @@ export default defineEventHandler(async (event) => {
     return {
         question: randomQuestion,
         timeLeft: getTimeLeft(newPlayerSession.startedAt),
-        score: 0,
         answeredQuestions: 0,
     } as GameSession;
 });

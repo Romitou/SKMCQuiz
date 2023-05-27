@@ -36,7 +36,6 @@ export default defineEventHandler(async (event) => {
     return {
         question,
         timeLeft: getTimeLeft(playerSession.startedAt),
-        score: playerSession.score,
         answeredQuestions: Object.keys(playerSession.answers).length,
     } as GameSession;
 });

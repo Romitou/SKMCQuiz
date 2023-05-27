@@ -28,6 +28,5 @@ export interface PrivateGameSession {
 export interface GameSession {
     question: GameQuestion | undefined;
     timeLeft: number | undefined;
-    score: number | undefined;
     answeredQuestions: number | undefined;
 }

@@ -9,13 +9,6 @@
         </span>
       </div>
       <div class="flex flex-row items-center space-x-2 h-10 bg-zinc-700 px-5 py-1 rounded-lg shadow text-gray-200">
-        <StarIcon class="h-6 w-6" />
-        <span class="countdown font-mono text-2xl">
-          <span :style="{'--value':score}"></span>
-        </span>
-        <span class="text-lg hidden sm:block">points</span>
-      </div>
-      <div class="flex flex-row items-center space-x-2 h-10 bg-zinc-700 px-5 py-1 rounded-lg shadow text-gray-200">
         <ClockIcon class="h-6 w-6" />
         <span class="countdown font-mono text-2xl" v-if="timeLeft >= 0">
           <span :style="{'--value':timeLeft}"></span>
@@ -33,14 +26,10 @@
 </template>
 
 <script setup lang="ts">
-import {ClockIcon, HashtagIcon, StarIcon} from '@heroicons/vue/24/outline';
+import {ClockIcon, HashtagIcon} from '@heroicons/vue/24/outline';
 
-const { answeredQuestions, score, timeLeft } = defineProps({
+const { answeredQuestions, timeLeft } = defineProps({
   answeredQuestions: {
-    type: Number,
-    required: true,
-  },
-  score: {
     type: Number,
     required: true,
   },

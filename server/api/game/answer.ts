@@ -70,7 +70,7 @@ export default defineEventHandler(async (event) => {
     if (isCorrect) {
         playerSession.score += score;
     } else {
-        const toRemove = Math.floor(score / 2);
+        const toRemove = Math.floor(score / 4);
         playerSession.score = Math.max(0, playerSession.score - toRemove);
     }
 
@@ -84,7 +84,6 @@ export default defineEventHandler(async (event) => {
     return {
         question: randomQuestion,
         timeLeft: getTimeLeft(playerSession.startedAt),
-        score: playerSession.score,
         answeredQuestions: Object.keys(playerSession.answers).length,
     } as GameSession;
 });

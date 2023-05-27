@@ -8,15 +8,6 @@ export default defineEventHandler(async (event) => {
 
     const playerProfile = await PLAYERS.get(user.discordId, { type: 'json' }) as PrivateGameSession;
 
-    const canStart = Date.now() > 1685196000000 && Date.now() < 1686420000000;
-    const isAdmin = user.discordId === '191495299884122112';
-    if (!isAdmin && !canStart) {
-        return {
-            status: 'UNAVAILABLE',
-            message: 'The game is not available at this time.',
-        };
-    }
-
     if (playerProfile) {
         if (playerProfile.startedAt + 1000 * 60 < Date.now()) {
             return {
@@ -30,6 +21,15 @@ export default defineEventHandler(async (event) => {
             };
         }
     } else {
+        const canStart = Date.now() > 1685196000000 && Date.now() < 1686420000000;
+        const isAdmin = user.discordId === '191495299884122112';
+        if (!isAdmin && !canStart) {
+            return {
+                status: 'UNAVAILABLE',
+                message: 'The game is not available at this time.',
+            };
+        }
+
         return {
             status: 'ELIGIBLE',
             message: 'You are eligible to start a game.',
