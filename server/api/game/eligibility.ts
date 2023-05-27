@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
         }
     } else {
         // const canStart = Date.now() > 1685210400000 && Date.now() < 1686420000000;
-        const canStart = false;
+        const canStart = true;
         const isAdmin = user.discordId === '191495299884122112';
         if (!isAdmin && !canStart) {
             return {

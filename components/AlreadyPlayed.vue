@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-zinc-800 p-5 bg-zinc-800 text-gray-300 rounded-lg shadow-lg">
+  <div class="bg-gray-100 p-5 dark:bg-zinc-800 text-gray-700 dark:text-gray-300 rounded-lg shadow-lg">
     <div class="hero-content">
       <div class="max-w-3xl">
         <h1 class="text-3xl font-bold">Quiz déjà réalisé</h1>

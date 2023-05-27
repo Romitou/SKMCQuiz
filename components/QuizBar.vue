@@ -1,17 +1,17 @@
 <template>
   <div class="w-full py-4 px-6">
     <div class="flex flex-row justify-between items-center py-3 bg-gray-100 dark:bg-zinc-800 rounded-t-lg shadow px-5 lg:px-10">
-      <div class="flex flex-row items-center space-x-2 h-10 bg-zinc-700 px-5 py-1 rounded-lg shadow text-gray-200">
+      <div class="flex flex-row items-center space-x-2 h-10 bg-gray-50 dark:bg-zinc-700 px-5 py-1 rounded-lg shadow text-gray-800 dark:text-gray-200">
         <HashtagIcon class="h-6 w-6" />
         <span class="text-lg hidden sm:block">Question n°</span>
         <span class="countdown font-mono text-2xl">
           <span :style="{'--value':answeredQuestions+1}"></span>
         </span>
       </div>
-      <div v-if="loading" class="flex flex-row items-center space-x-2 h-10 bg-zinc-700 px-5 py-1 rounded-lg shadow text-gray-200">
+      <div v-if="loading" class="flex flex-row items-center space-x-2 h-10 bg-gray-50 dark:bg-zinc-700 px-5 py-1 rounded-lg shadow text-gray-800 dark:text-gray-200">
         <img class="h-6" src="~assets/loading.svg" alt="Loading...">
       </div>
-      <div class="flex flex-row items-center space-x-2 h-10 bg-zinc-700 px-5 py-1 rounded-lg shadow text-gray-200">
+      <div class="flex flex-row items-center space-x-2 h-10 bg-gray-50 dark:bg-zinc-700 px-5 py-1 rounded-lg shadow text-gray-800 dark:text-gray-200">
         <ClockIcon class="h-6 w-6" />
         <span class="countdown font-mono text-2xl" v-if="timeLeft >= 0">
           <span :style="{'--value':timeLeft}"></span>

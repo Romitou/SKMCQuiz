@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-screen dark:bg-zinc-900 skmc-bg-dark">
+  <div class="flex flex-col h-screen dark:bg-zinc-900 skmc-bg">
     <Navbar />
     <template v-if="gameStore.inGame">
       <QuizBar
