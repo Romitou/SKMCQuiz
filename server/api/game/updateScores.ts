@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
         if (discordId && playerKey.name !== discordId) continue;
         const player = await PLAYERS.get(playerKey.name, { type: 'json' }) as PrivateGameSession;
         if (player) {
-            logs.push("==== " + playerKey.name + " ====")
+            logs.push("Recalculating scores of " + playerKey.name + "...")
             logs.push('Old score: ' + player.score)
             player.score = 0;
             let i = 0;
@@ -34,17 +34,19 @@ export default defineEventHandler(async (event) => {
                     const score = getLevelScore(i);
                     if (answerId === question.correctAnswerId) {
                         player.score += score;
-                        logs.push('Question: "' + question.content + '" correct (+', score + ") ("+player.score+")")
+                        logs.push(`[${i}] Correct answer: "${question.content}" (+${score}) (${player.score})`)
                     } else {
                         const toRemove = Math.floor(score / 2);
                         player.score -= toRemove;
-                        logs.push('Question: "' + question.content + '" incorrect (-', toRemove + ") ("+player.score+")")
+                        logs.push(`[${i}] Incorrect answer: "${question.content}" (-${toRemove}) (${player.score})`);
                     }
                 } else {
                     logs.push('Question not found: ' + questionId, 'level: ' + i);
                 }
             }
             player.score += player.bonus;
+            logs.push(`Bonus: ${player.bonus} (${player.score})`);
+            logs.push('New score: ' + player.score)
             await savePlayer(event, player);
         }
     }
