@@ -69,23 +69,23 @@ export async function createRanking(event: H3Event, showScores: boolean = false)
     const bronzePlayers = sortedRanking.slice(silverCategory, bronzeCategory);
     const otherPlayers = sortedRanking.slice(bronzeCategory);
 
-    let starString = starPlayers.map(([name, score]) => `:white_small_square: ${name} ${showScores ? `(${score} pts)` : ''}`).join('\n');
+    let starString = starPlayers.map(([name, score]) => displayRow(name, score)).join('\n');
     if (starString.length === 0)
         starString = 'Personne :(';
 
-    let goldString = goldPlayers.map(([name, score]) => `:white_small_square: ${name} ${showScores ? `(${score} pts)` : ''}`).join('\n');
+    let goldString = goldPlayers.map(([name, score]) => displayRow(name, score)).join('\n');
     if (goldString.length === 0)
         goldString = 'Personne :(';
 
-    let silverString = silverPlayers.map(([name, score]) => `:white_small_square: ${name} ${showScores ? `(${score} pts)` : ''}`).join('\n');
+    let silverString = silverPlayers.map(([name, score]) => displayRow(name, score)).join('\n');
     if (silverString.length === 0)
         silverString = 'Personne :(';
 
-    let bronzeString = bronzePlayers.map(([name, score]) => `:white_small_square: ${name} ${showScores ? `(${score} pts)` : ''}`).join('\n');
+    let bronzeString = bronzePlayers.map(([name, score]) => displayRow(name, score)).join('\n');
     if (bronzeString.length === 0)
         bronzeString = 'Personne :(';
 
-    let otherString = otherPlayers.map(([name, score]) => `:white_small_square: ${name} ${showScores ? `(${score} pts)` : ''}`).join('\n');
+    let otherString = otherPlayers.map(([name, score]) => displayRow(name, score)).join('\n');
     if (otherString.length === 0)
         otherString = 'Personne :(';
 
@@ -124,4 +124,18 @@ export async function createRanking(event: H3Event, showScores: boolean = false)
             ]
         }
     ];
+}
+
+function displayRow(name: string, score: number, showScores: boolean = false) {
+    let displayName = name;
+    if (score <= -999) {
+        displayName = `~~${name}~~ (disqualification)`;
+    }
+
+    let displayScore = '';
+    if (score >= -999 && showScores) {
+        displayScore = `(${score} pts)`;
+    }
+
+    return `:white_small_square: ${displayName} ${displayScore}`;
 }
