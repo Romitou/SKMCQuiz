@@ -29,41 +29,46 @@ export default defineEventHandler(async (event) => {
     // Sort the ranking
     let sortedRanking = Object.entries(ranking).sort(([, a], [, b]) => b - a);
 
-    // Get the top 15% and remove them from the ranking
-    const top15 = sortedRanking.slice(0, Math.ceil(sortedRanking.length * 0.15));
-    sortedRanking = sortedRanking.slice(Math.ceil(sortedRanking.length * 0.15));
+    // There is 4 types of categories : star, gold, silver and bronze
+    // Star category is the top 15% of players
+    // Gold category is the top 30% of players
+    // Silver category is the top 45% of players
+    // Bronze category is the top 70% of players
+    // The last 30% of players are not in any category
 
-    let top15string = top15.map(([name, _]) => `:white_small_square: ${name}`).join('\n');
-    if (top15string.length === 0)
-        top15string = 'Personne :(';
+    // Get the number of players in each category
+    const starCategory = Math.round(sortedRanking.length * 0.15);
+    const goldCategory = Math.round(sortedRanking.length * 0.3);
+    const silverCategory = Math.round(sortedRanking.length * 0.45);
+    const bronzeCategory = Math.round(sortedRanking.length * 0.7);
 
-    // Get the top 30% and remove them from the ranking
-    const top30 = sortedRanking.slice(0, Math.ceil(sortedRanking.length * 0.15));
-    sortedRanking = sortedRanking.slice(Math.ceil(sortedRanking.length * 0.15));
+    // Get the players in each category
+    const starPlayers = sortedRanking.slice(0, starCategory);
+    const goldPlayers = sortedRanking.slice(starCategory, goldCategory);
+    const silverPlayers = sortedRanking.slice(goldCategory, silverCategory);
+    const bronzePlayers = sortedRanking.slice(silverCategory, bronzeCategory);
+    const otherPlayers = sortedRanking.slice(bronzeCategory);
 
-    let top30string = top30.map(([name, _]) => `:white_small_square: ${name}`).join('\n');
-    if (top30string.length === 0)
-        top30string = 'Personne :(';
+    let starString = starPlayers.map(([name, _]) => `:white_small_square: ${name}`).join('\n');
+    if (starString.length === 0)
+        starString = 'Personne :(';
 
-    // Get the top 45% and remove them from the ranking
-    const top45 = sortedRanking.slice(0, Math.ceil(sortedRanking.length * 0.15));
-    sortedRanking = sortedRanking.slice(Math.ceil(sortedRanking.length * 0.15));
+    let goldString = goldPlayers.map(([name, _]) => `:white_small_square: ${name}`).join('\n');
+    if (goldString.length === 0)
+        goldString = 'Personne :(';
 
-    let top45string = top45.map(([name, _]) => `:white_small_square: ${name}`).join('\n');
-    if (top45string.length === 0)
-        top45string = 'Personne :(';
+    let silverString = silverPlayers.map(([name, _]) => `:white_small_square: ${name}`).join('\n');
+    if (silverString.length === 0)
+        silverString = 'Personne :(';
 
-    // Get the top 70% and remove them from the ranking
-    const top70 = sortedRanking.slice(0, Math.ceil(sortedRanking.length * 0.25));
-    sortedRanking = sortedRanking.slice(Math.ceil(sortedRanking.length * 0.25));
+    let bronzeString = bronzePlayers.map(([name, _]) => `:white_small_square: ${name}`).join('\n');
+    if (bronzeString.length === 0)
+        bronzeString = 'Personne :(';
 
-    let top70string = top70.map(([name, _]) => `:white_small_square: ${name}`).join('\n');
-    if (top70string.length === 0)
-        top70string = 'Personne :(';
+    let otherString = otherPlayers.map(([name, _]) => `:white_small_square: ${name}`).join('\n');
+    if (otherString.length === 0)
+        otherString = 'Personne :(';
 
-    let lastString = sortedRanking.map(([name, _]) => `:white_small_square: ${name}`).join('\n');
-    if (lastString.length === 0)
-        lastString = 'Personne :(';
 
 
     // Send the ranking to the bot
@@ -88,23 +93,23 @@ export default defineEventHandler(async (event) => {
                     fields: [
                         {
                             name: '🏅 Catégorie étoile',
-                            value: top15string,
+                            value: starString,
                         },
                         {
                             name: '🥇 Catégorie or',
-                            value: top30string,
+                            value: goldString,
                         },
                         {
                             name: '🥈 Catégorie argent',
-                            value: top45string,
+                            value: silverString,
                         },
                         {
                             name: '🥉 Catégorie bronze',
-                            value: top70string,
+                            value: bronzeString,
                         },
                         {
                             name: '­',
-                            value: lastString,
+                            value: otherString,
                         }
                     ]
                 }
