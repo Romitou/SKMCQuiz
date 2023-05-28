@@ -77,7 +77,7 @@ router.post('/', defineEventHandler(async (event) => {
             return {
                 type: 4,
                 data: {
-                    embeds: createRanking(event, true),
+                    embeds: await createRanking(event, true),
                 }
             }
         }
