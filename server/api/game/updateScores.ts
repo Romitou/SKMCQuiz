@@ -43,9 +43,9 @@ export default defineEventHandler(async (event) => {
                 } else {
                     logs.push('Question not found: ' + questionId, 'level: ' + i);
                 }
-                player.score += player.bonus;
-                await savePlayer(event, player);
             }
+            player.score += player.bonus;
+            await savePlayer(event, player);
         }
     }
 
