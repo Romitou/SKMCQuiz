@@ -2,6 +2,7 @@ import { createRouter, defineEventHandler, getHeaders, readBody, readRawBody, us
 import type { H3Event } from 'h3';
 import { ButtonStyleTypes, MessageComponentTypes, verifyKey } from 'discord-interactions';
 import jwt from '@tsndr/cloudflare-worker-jwt';
+import { createRanking } from './game/updateRanking';
 
 const router = createRouter();
 
@@ -63,6 +64,13 @@ router.post('/', defineEventHandler(async (event) => {
                     flags: 64,
                 },
             };
+        } else if (custom_id === 'ranking') {
+            return {
+                type: 4,
+                data: {
+                    embeds: createRanking(event, true),
+                }
+            }
         }
     }
 
