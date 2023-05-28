@@ -133,7 +133,7 @@ function displayRow(name: string, score: number, showScores: boolean = false) {
     }
 
     let displayScore = '';
-    if (score >= -999 && showScores) {
+    if (showScores) {
         displayScore = `(${score} pts)`;
     }
 
