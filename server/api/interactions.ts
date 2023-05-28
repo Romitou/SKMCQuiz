@@ -64,7 +64,16 @@ router.post('/', defineEventHandler(async (event) => {
                     flags: 64,
                 },
             };
-        } else if (custom_id === 'ranking') {
+        } else if (name === 'ranking') {
+            if (body.member.user.id !== '191495299884122112') {
+                return {
+                    type: 4,
+                    data: {
+                        content: 'Vous n\'avez pas la permission d\'utiliser cette commande.',
+                        flags: 64,
+                    }
+                }
+            }
             return {
                 type: 4,
                 data: {
