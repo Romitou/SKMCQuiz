@@ -34,14 +34,14 @@ export default defineEventHandler(async (event) => {
                     const score = getLevelScore(i);
                     if (answerId === question.correctAnswerId) {
                         player.score += score;
-                        console.log('Question: "' + question.content + '" correct (+', score + ") ("+player.score+")")
+                        logs.push('Question: "' + question.content + '" correct (+', score + ") ("+player.score+")")
                     } else {
                         const toRemove = Math.floor(score / 2);
                         player.score -= toRemove;
-                        console.log('Question: "' + question.content + '" incorrect (-', toRemove + ") ("+player.score+")")
+                        logs.push('Question: "' + question.content + '" incorrect (-', toRemove + ") ("+player.score+")")
                     }
                 } else {
-                    console.log('Question not found: ' + questionId, 'level: ' + i);
+                    logs.push('Question not found: ' + questionId, 'level: ' + i);
                 }
                 player.score += player.bonus;
                 await savePlayer(event, player);
