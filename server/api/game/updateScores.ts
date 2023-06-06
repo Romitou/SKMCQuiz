@@ -1,6 +1,6 @@
 import { defineEventHandler, getHeaders, getQuery } from 'h3';
 import { PrivateGameSession } from '../../../typings/game';
-import { getLevelScore, getQuestion } from '../../core/questions';
+import { getLevelScore, getPrivateQuestion, getQuestion } from '../../core/questions';
 import { savePlayer } from '../../core/game';
 
 export default defineEventHandler(async (event) => {
@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
             player.score = 0;
             let i = 0;
             for (const [questionId, answerId] of Object.entries(player.answers)) {
-                const question = await getQuestion(event, questionId, ++i, true);
+                const question = await getPrivateQuestion(event, questionId, ++i);
                 if (question) {
                     const score = getLevelScore(i);
                     if (answerId === question.correctAnswerId) {

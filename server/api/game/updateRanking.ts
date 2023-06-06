@@ -129,7 +129,7 @@ export async function createRanking(event: H3Event, showScores: boolean = false)
 function displayRow(name: string, score: number, showScores: boolean = false) {
     let displayName = name;
     if (score <= -999) {
-        displayName = `~~${name}~~ (disqualification)`;
+        displayName = `~~${name}~~ (disqualifié)`;
     }
 
     let displayScore = '';

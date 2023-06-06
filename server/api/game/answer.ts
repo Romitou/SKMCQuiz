@@ -1,5 +1,5 @@
 import { createError, defineEventHandler, readRawBody } from 'h3';
-import { getLevelScore, getQuestion, getRandomQuestion } from '../../core/questions';
+import { getLevelScore, getPrivateQuestion, getQuestion, getRandomQuestion } from '../../core/questions';
 import type { GameSession, PrivateGameSession } from '../../../typings/game';
 import { getUser } from '../../core/auth';
 import { getTimeLeft, savePlayer } from '../../core/game';
@@ -48,7 +48,7 @@ export default defineEventHandler(async (event) => {
 
     const currentLevel = Object.keys(playerSession.answers).length + 1;
 
-    const question = await getQuestion(event, questionId, currentLevel, true);
+    const question = await getPrivateQuestion(event, questionId, currentLevel);
     if (!question) {
         throw createError({
             statusCode: 404,

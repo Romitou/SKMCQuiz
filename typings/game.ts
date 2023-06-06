@@ -4,11 +4,29 @@ export interface User {
     avatar: string;
 }
 
+export interface PrivateGameQuestion {
+    id: string;
+    content: string;
+    image: boolean;
+    averageResponseTime: number;
+    score: number;
+    averageScore: number;
+    correctAnswerId: string | undefined;
+    answers: PrivateGameAnswer[];
+}
+
+export interface PrivateGameAnswer {
+    id: string;
+    content: string;
+    image: boolean;
+    answerPercentage: number;
+}
+
+
 export interface GameQuestion {
     id: string;
     content: string;
     image: boolean;
-    correctAnswerId: string | undefined;
     answers: GameAnswer[];
 }
 
@@ -32,7 +50,7 @@ export interface PrivateGameSession {
 }
 
 export interface GameSession {
-    question: GameQuestion | undefined;
+    question: PrivateGameQuestion | undefined;
     timeLeft: number | undefined;
     answeredQuestions: number | undefined;
 }

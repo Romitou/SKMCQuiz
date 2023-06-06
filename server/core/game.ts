@@ -1,5 +1,5 @@
 import { H3Event } from 'h3';
-import { PrivateGameSession, User } from '../../typings/game';
+import { PrivateGameSession } from '../../typings/game';
 
 export function getTimeLeft(startedAt: number): number {
     return 60 - Math.floor((Date.now() - startedAt) / 1000);

@@ -1,4 +1,4 @@
-import { defineEventHandler, getHeaders, getQuery } from 'h3';
+import { defineEventHandler, getHeaders } from 'h3';
 import { PrivateGameSession } from '../../../typings/game';
 
 export default defineEventHandler(async (event) => {

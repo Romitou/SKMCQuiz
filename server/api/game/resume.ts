@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
 
     const currentLevel = Object.keys(playerSession.answers).length + 1;
 
-    const question = await getQuestion(event, playerSession.currentQuestionId, currentLevel, false);
+    const question = await getQuestion(event, playerSession.currentQuestionId, currentLevel);
     if (!question) {
         throw createError({
             statusCode: 404,
