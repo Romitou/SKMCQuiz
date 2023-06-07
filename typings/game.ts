@@ -7,6 +7,7 @@ export interface User {
 export interface PrivateGameQuestion {
     id: string;
     content: string;
+    level: number;
     image: boolean;
     averageResponseTime: number;
     totalResponseTime: number;

@@ -27,9 +27,22 @@ export default defineEventHandler(async (event) => {
     const questionsList = await QUESTIONS.list();
     let questions: PrivateGameQuestion[] = [];
     for (const listQuestion of questionsList.keys) {
+        if (!listQuestion.name.startsWith('level-')) {
+            await QUESTIONS.delete(listQuestion.name);
+            continue;
+        }
+
         const question = await QUESTIONS.get(listQuestion.name, { type: 'json' }) as PrivateGameQuestion[];
         if (!question)
             continue;
+
+        const levelString = listQuestion.name.split('-')[1];
+        const level = parseInt(levelString);
+
+        questions = questions.map((q) => {
+            q.level = level;
+            return q;
+        });
 
         questions.push(...question);
     }
@@ -47,9 +60,11 @@ export default defineEventHandler(async (event) => {
 
             answer.count++;
 
-            const score = getLevelScore(i++);
+            question.answers[question.answers.indexOf(answer)] = answer;
 
-            player.score = score;
+            const score = getLevelScore(i++);
+            question.score = score;
+
             if (answerId === question.correctAnswerId) {
                 question.totalScore += score;
             } else {
@@ -57,7 +72,12 @@ export default defineEventHandler(async (event) => {
                 question.totalScore -= toRemove;
             }
 
-            questions[questions.indexOf(question)] = question;
+            questions = questions.map((q) => {
+                if (q.id === questionId)
+                    return question;
+
+                return q;
+            });
         }
 
         let lastTiming = player.startedAt;
@@ -69,11 +89,20 @@ export default defineEventHandler(async (event) => {
             question.totalResponseTime += lastTiming - timing;
             lastTiming = timing;
 
-            questions[questions.indexOf(question)] = question;
+            questions = questions.map((q) => {
+                if (q.id === questionId)
+                    return question;
+
+                return q;
+            });
         }
     }
 
+    const questionsByLevel: Record<number, PrivateGameQuestion[]> = {};
     for (const question of questions) {
+        if (!questionsByLevel[question.level])
+            questionsByLevel[question.level] = [];
+
         const totalAnswers = question.answers.reduce((a, b) => a + b.count, 0);
 
         question.answers = question.answers.map((a) => {
@@ -84,7 +113,13 @@ export default defineEventHandler(async (event) => {
         question.averageResponseTime = Math.round(question.totalResponseTime / totalAnswers);
         question.averageScore = Math.round(question.totalScore / totalAnswers);
 
-        await QUESTIONS.put(question.id, JSON.stringify(question));
+        questionsByLevel[question.level].push(question);
+    }
+
+    for (const questionByLevel of questionsByLevel) {
+        for (const [level, questions] of Object.entries(questionByLevel)) {
+            await QUESTIONS.put(`level-${level}`, JSON.stringify(questions));
+        }
     }
 
     return { ok: true };
