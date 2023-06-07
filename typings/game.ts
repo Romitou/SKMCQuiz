@@ -9,8 +9,10 @@ export interface PrivateGameQuestion {
     content: string;
     image: boolean;
     averageResponseTime: number;
+    totalResponseTime: number;
     score: number;
     averageScore: number;
+    totalScore: number;
     correctAnswerId: string | undefined;
     answers: PrivateGameAnswer[];
 }
@@ -20,6 +22,7 @@ export interface PrivateGameAnswer {
     content: string;
     image: boolean;
     answerPercentage: number;
+    count: number;
 }
 
 
