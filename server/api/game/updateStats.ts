@@ -27,11 +27,11 @@ export default defineEventHandler(async (event) => {
     const questionsList = await QUESTIONS.list();
     let questions: PrivateGameQuestion[] = [];
     for (const listQuestion of questionsList.keys) {
-        const question = await QUESTIONS.get(listQuestion.name, { type: 'json' }) as PrivateGameQuestion;
+        const question = await QUESTIONS.get(listQuestion.name, { type: 'json' }) as PrivateGameQuestion[];
         if (!question)
             continue;
 
-        questions.push(question);
+        questions.push(...question);
     }
 
     for (const player of players) {
