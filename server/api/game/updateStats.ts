@@ -32,14 +32,14 @@ export default defineEventHandler(async (event) => {
             continue;
         }
 
-        const question = await QUESTIONS.get(listQuestion.name, { type: 'json' }) as PrivateGameQuestion[];
+        let question = await QUESTIONS.get(listQuestion.name, { type: 'json' }) as PrivateGameQuestion[];
         if (!question)
             continue;
 
         const levelString = listQuestion.name.split('-')[1];
         const level = parseInt(levelString);
 
-        questions = questions.map((q) => {
+        question = question.map((q) => {
             q.level = level;
             return q;
         });
