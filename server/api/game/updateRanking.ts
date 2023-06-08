@@ -126,7 +126,7 @@ export async function createRanking(event: H3Event, showScores: boolean = false)
             fields: [
                 {
                     name: `🏅 Catégorie étoile`,
-                    value: `*(entre ${maxStarScore} et ${minStarScore} points)*\n${starString}`,
+                    value: `*(plus de ${minStarScore} points)*\n${starString}`,
                 },
                 {
                     name: `🥇 Catégorie or`,
