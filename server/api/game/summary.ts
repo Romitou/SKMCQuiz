@@ -1,6 +1,7 @@
 import { createError, defineEventHandler } from 'h3';
 import type { PrivateGameQuestion, PrivateGameSession, SummaryAnswer, SummaryQuestion } from '../../../typings/game';
 import { getUser } from '../../core/auth';
+import { getPrivateQuestion } from '../../core/questions';
 
 export default defineEventHandler(async (event) => {
     const user = await getUser(event);
@@ -24,8 +25,9 @@ export default defineEventHandler(async (event) => {
 
     const questions: SummaryQuestion[] = [];
 
+    let level = 1;
     for (const [questionId, answerId] of Object.entries(playerSession.answers)) {
-        const question = await QUESTIONS.get(questionId, { type: 'json' }) as PrivateGameQuestion;
+        const question = await getPrivateQuestion(event, questionId, level++);
         if (!question)
             continue;
         let userScore;
