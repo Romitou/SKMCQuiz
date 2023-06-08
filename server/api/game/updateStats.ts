@@ -14,6 +14,8 @@ export default defineEventHandler(async (event) => {
     const PLAYERS: KVNamespace = event.context.cloudflare.env.players;
     const QUESTIONS: KVNamespace = event.context.cloudflare.env.questions;
 
+    console.log('Step 1')
+
     const playersList = await PLAYERS.list();
     const players: PrivateGameSession[] = [];
     for (const listPlayer of playersList.keys) {
@@ -24,6 +26,8 @@ export default defineEventHandler(async (event) => {
         players.push(player);
     }
 
+    console.log('Step 2')
+
     const questionsList = await QUESTIONS.list();
     let questions: PrivateGameQuestion[] = [];
     for (const listQuestion of questionsList.keys) {
@@ -32,20 +36,22 @@ export default defineEventHandler(async (event) => {
             continue;
         }
 
-        let question = await QUESTIONS.get(listQuestion.name, { type: 'json' }) as PrivateGameQuestion[];
-        if (!question)
+        let questionArray = await QUESTIONS.get(listQuestion.name, { type: 'json' }) as PrivateGameQuestion[];
+        if (!questionArray)
             continue;
 
         const levelString = listQuestion.name.split('-')[1];
         const level = parseInt(levelString);
 
-        question = question.map((q) => {
+        questionArray = questionArray.map((q) => {
             q.level = level;
             return q;
         });
 
-        questions.push(...question);
+        questions.push(...questionArray);
     }
+
+    console.log('Step 3')
 
     for (const player of players) {
         let i = 1;
@@ -60,7 +66,12 @@ export default defineEventHandler(async (event) => {
 
             answer.count++;
 
-            question.answers[question.answers.indexOf(answer)] = answer;
+            question.answers = question.answers.map((a) => {
+                if (a.id === answerId)
+                    return answer;
+
+                return a;
+            });
 
             const score = getLevelScore(i++);
             question.score = score;
@@ -98,6 +109,8 @@ export default defineEventHandler(async (event) => {
         }
     }
 
+    console.log('Step 4')
+
     const questionsByLevel: Record<number, PrivateGameQuestion[]> = {};
     for (const question of questions) {
         if (!questionsByLevel[question.level])
@@ -113,14 +126,20 @@ export default defineEventHandler(async (event) => {
         question.averageResponseTime = Math.round(question.totalResponseTime / totalAnswers);
         question.averageScore = Math.round(question.totalScore / totalAnswers);
 
+        if (!questionsByLevel[question.level])
+            questionsByLevel[question.level] = [];
         questionsByLevel[question.level].push(question);
     }
+
+    console.log('Step 5')
 
     for (const questionByLevel of questionsByLevel) {
         for (const [level, questions] of Object.entries(questionByLevel)) {
             await QUESTIONS.put(`level-${level}`, JSON.stringify(questions));
         }
     }
+
+    console.log('Step 6')
 
     return { ok: true };
 });
