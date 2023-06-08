@@ -65,5 +65,5 @@ export default defineEventHandler(async (event) => {
 
     await cache.put(`https://quiz.skript-mc.fr/api/game/summary?discordId=${playerSession.discordId}`, response.clone());
 
-    return response;
+    return await response.json();
 });
