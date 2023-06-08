@@ -18,6 +18,25 @@ export interface PrivateGameQuestion {
     answers: PrivateGameAnswer[];
 }
 
+export interface SummaryQuestion {
+    id: string;
+    content: string;
+    level: number;
+    userScore: number;
+    image: boolean;
+    averageResponseTime: number;
+    averageScore: number;
+    correctAnswerId: string;
+    answers: SummaryAnswer[];
+}
+
+export interface SummaryAnswer {
+    id: string;
+    content: string;
+    image: boolean;
+    answerPercentage: number;
+}
+
 export interface PrivateGameAnswer {
     id: string;
     content: string;
