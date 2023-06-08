@@ -133,10 +133,8 @@ export default defineEventHandler(async (event) => {
 
     console.log('Step 5')
 
-    for (const questionByLevel of questionsByLevel) {
-        for (const [level, questions] of Object.entries(questionByLevel)) {
-            await QUESTIONS.put(`level-${level}`, JSON.stringify(questions));
-        }
+    for (const [level, questionsOfLevel] of Object.entries(questionsByLevel)) {
+        await QUESTIONS.put(`level-${level}`, JSON.stringify(questionsOfLevel));
     }
 
     console.log('Step 6')
