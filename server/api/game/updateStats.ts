@@ -45,6 +45,15 @@ export default defineEventHandler(async (event) => {
 
         questionArray = questionArray.map((q) => {
             q.level = level;
+            q.totalResponseTime = 0;
+            q.totalScore = 0;
+            q.averageResponseTime = 0;
+            q.averageScore = 0;
+            q.answers = q.answers.map((a) => {
+                a.count = 0;
+                a.answerPercentage = 0;
+                return a;
+            });
             return q;
         });
 
