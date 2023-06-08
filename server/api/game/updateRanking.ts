@@ -56,18 +56,45 @@ export async function createRanking(event: H3Event, showScores: boolean = false)
     // Bronze category is the top 70% of players
     // The last 30% of players are not in any category
 
-    // Get the number of players in each category
-    const starCategory = Math.round(sortedRanking.length * 0.15);
-    const goldCategory = Math.round(sortedRanking.length * 0.3);
-    const silverCategory = Math.round(sortedRanking.length * 0.45);
-    const bronzeCategory = Math.round(sortedRanking.length * 0.7);
+    // Get the score for each category (rounded to the nearest integer)
+    const starCategoryScore = sortedRanking[Math.round(sortedRanking.length * 0.15)][1];
+    const goldCategoryScore = sortedRanking[Math.round(sortedRanking.length * 0.3)][1];
+    const silverCategoryScore = sortedRanking[Math.round(sortedRanking.length * 0.45)][1];
+    const bronzeCategoryScore = sortedRanking[Math.round(sortedRanking.length * 0.7)][1];
 
     // Get the players in each category
-    const starPlayers = sortedRanking.slice(0, starCategory);
-    const goldPlayers = sortedRanking.slice(starCategory, goldCategory);
-    const silverPlayers = sortedRanking.slice(goldCategory, silverCategory);
-    const bronzePlayers = sortedRanking.slice(silverCategory, bronzeCategory);
-    const otherPlayers = sortedRanking.slice(bronzeCategory);
+    const starPlayers = [];
+    const goldPlayers = [];
+    const silverPlayers = [];
+    const bronzePlayers = [];
+    const otherPlayers = [];
+
+    const minStarScore = sortedRanking[0][1];
+    const maxStarScore = sortedRanking[Math.round(sortedRanking.length * 0.15)][1];
+
+    const minGoldScore = sortedRanking[Math.round(sortedRanking.length * 0.15)][1];
+    const maxGoldScore = sortedRanking[Math.round(sortedRanking.length * 0.3)][1];
+
+    const minSilverScore = sortedRanking[Math.round(sortedRanking.length * 0.3)][1];
+    const maxSilverScore = sortedRanking[Math.round(sortedRanking.length * 0.45)][1];
+
+    const minBronzeScore = sortedRanking[Math.round(sortedRanking.length * 0.45)][1];
+    const maxBronzeScore = sortedRanking[Math.round(sortedRanking.length * 0.7)][1];
+
+    const minOtherScore = sortedRanking[Math.round(sortedRanking.length * 0.7)][1];
+
+    for (const [name, score] of sortedRanking) {
+        if (score >= starCategoryScore)
+            starPlayers.push([name, score]);
+        else if (score >= goldCategoryScore)
+            goldPlayers.push([name, score]);
+        else if (score >= silverCategoryScore)
+            silverPlayers.push([name, score]);
+        else if (score >= bronzeCategoryScore)
+            bronzePlayers.push([name, score]);
+        else
+            otherPlayers.push([name, score]);
+    }
 
     let starString = starPlayers.map(([name, score]) => displayRow(name, score, showScores)).join('\n');
     if (starString.length === 0)
@@ -102,23 +129,23 @@ export async function createRanking(event: H3Event, showScores: boolean = false)
             color: 2988250,
             fields: [
                 {
-                    name: '🏅 Catégorie étoile',
+                    name: `🏅 Catégorie étoile *(${minStarScore} à ${maxStarScore} pts)*`,
                     value: starString,
                 },
                 {
-                    name: '🥇 Catégorie or',
+                    name: `🥇 Catégorie or *(${minGoldScore} à ${maxGoldScore} pts)*`,
                     value: goldString,
                 },
                 {
-                    name: '🥈 Catégorie argent',
+                    name: `🥈 Catégorie argent *(${minSilverScore} à ${maxSilverScore} pts)*`,
                     value: silverString,
                 },
                 {
-                    name: '🥉 Catégorie bronze',
+                    name: `🥉 Catégorie bronze *(${minBronzeScore} à ${maxBronzeScore} pts)*`,
                     value: bronzeString,
                 },
                 {
-                    name: '­',
+                    name: `📦 Participants *(${minOtherScore} pts et moins)*`,
                     value: otherString,
                 }
             ]
