@@ -69,19 +69,15 @@ export async function createRanking(event: H3Event, showScores: boolean = false)
     const bronzePlayers = [];
     const otherPlayers = [];
 
-    const minStarScore = sortedRanking[0][1];
-    const maxStarScore = sortedRanking[Math.round(sortedRanking.length * 0.15)][1];
-
-    const minGoldScore = sortedRanking[Math.round(sortedRanking.length * 0.15)][1];
-    const maxGoldScore = sortedRanking[Math.round(sortedRanking.length * 0.3)][1];
-
-    const minSilverScore = sortedRanking[Math.round(sortedRanking.length * 0.3)][1];
-    const maxSilverScore = sortedRanking[Math.round(sortedRanking.length * 0.45)][1];
-
-    const minBronzeScore = sortedRanking[Math.round(sortedRanking.length * 0.45)][1];
-    const maxBronzeScore = sortedRanking[Math.round(sortedRanking.length * 0.7)][1];
-
-    const minOtherScore = sortedRanking[Math.round(sortedRanking.length * 0.7)][1];
+    const maxStarScore = sortedRanking[0][1];
+    const minStarScore = starCategoryScore;
+    const maxGoldScore = minStarScore - 1;
+    const minGoldScore = goldCategoryScore;
+    const maxSilverScore = minGoldScore - 1;
+    const minSilverScore = silverCategoryScore;
+    const maxBronzeScore = minSilverScore - 1;
+    const minBronzeScore = bronzeCategoryScore;
+    const maxOtherScore = minBronzeScore - 1;
 
     for (const [name, score] of sortedRanking) {
         if (score >= starCategoryScore)
@@ -129,24 +125,24 @@ export async function createRanking(event: H3Event, showScores: boolean = false)
             color: 2988250,
             fields: [
                 {
-                    name: `🏅 Catégorie étoile *(${minStarScore} à ${maxStarScore} pts)*`,
-                    value: starString,
+                    name: `🏅 Catégorie étoile`,
+                    value: `*(entre ${maxStarScore} et ${minStarScore} points)*\n${starString}`,
                 },
                 {
-                    name: `🥇 Catégorie or *(${minGoldScore} à ${maxGoldScore} pts)*`,
-                    value: goldString,
+                    name: `🥇 Catégorie or`,
+                    value: `*(entre ${maxGoldScore} et ${minGoldScore} points)*\n${goldString}`,
                 },
                 {
-                    name: `🥈 Catégorie argent *(${minSilverScore} à ${maxSilverScore} pts)*`,
-                    value: silverString,
+                    name: `🥈 Catégorie argent`,
+                    value: `*(entre ${maxSilverScore} et ${minSilverScore} points)*\n${silverString}`,
                 },
                 {
-                    name: `🥉 Catégorie bronze *(${minBronzeScore} à ${maxBronzeScore} pts)*`,
-                    value: bronzeString,
+                    name: `🥉 Catégorie bronze`,
+                    value: `*(entre ${maxBronzeScore} et ${minBronzeScore} points)*\n${bronzeString}`,
                 },
                 {
-                    name: `📦 Participants *(${minOtherScore} pts et moins)*`,
-                    value: otherString,
+                    name: `📦 Participants`,
+                    value: `*(moins de ${maxOtherScore} points)*\n${otherString}`,
                 }
             ]
         }
