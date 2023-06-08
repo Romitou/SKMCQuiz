@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { useAuthStore } from '~/stores/auth';
-import type { GameSession } from '~/typings/game';
+import type { GameSession, Summary } from '~/typings/game';
 import axios, { AxiosResponse } from 'axios';
 
 type EligibilityStatus = 'ELIGIBLE' | 'IN_PROGRESS' | 'ALREADY_PLAYED';
@@ -15,6 +15,7 @@ export interface GameState {
     inGame: boolean;
     endScreen: boolean;
     loading: boolean;
+    summary: Summary | undefined;
 }
 
 export const useGameStore = defineStore('game', {
@@ -28,6 +29,7 @@ export const useGameStore = defineStore('game', {
         inGame: false,
         endScreen: false,
         loading: false,
+        summary: undefined,
     }),
     getters: {
     },
@@ -88,6 +90,15 @@ export const useGameStore = defineStore('game', {
         async endGame() {
             this.inGame = false;
             this.endScreen = true;
-        }
+        },
+        async fetchSummary() {
+            const authStore = useAuthStore();
+
+            this.summary = await axios.get('/api/game/summary', {
+                headers: {
+                    Authorization: `Bearer ${authStore.authToken}`,
+                },
+            }).catch(console.error).then((response: AxiosResponse<Summary>) => response.data);
+        },
     }
 })

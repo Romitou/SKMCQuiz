@@ -59,6 +59,14 @@ export interface GameAnswer {
     image: boolean;
 }
 
+export interface Summary {
+    cachedAt: string;
+    score: number;
+    bonus: number;
+    bonusComment: string;
+    questions: SummaryQuestion[];
+}
+
 export interface PrivateGameSession {
     startedAt: number,
     score: number,
@@ -67,6 +75,7 @@ export interface PrivateGameSession {
     currentQuestionId: string;
     remainingTime: number;
     bonus: number;
+    bonusComment: string | undefined;
     name: string;
     discordId: string;
     ip: string | undefined;

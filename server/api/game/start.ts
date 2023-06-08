@@ -2,20 +2,17 @@ import { createError, defineEventHandler, getHeaders } from 'h3';
 import { getRandomQuestion } from '../../core/questions';
 import type { GameSession, PrivateGameSession } from '../../../typings/game';
 import { getUser } from '../../core/auth';
-import { getTimeLeft, savePlayer } from '../../core/game';
+import { getTimeLeft, isEligible, savePlayer } from '../../core/game';
 
 export default defineEventHandler(async (event) => {
     const user = await getUser(event);
     const PLAYERS: KVNamespace = event.context.cloudflare.env.players;
 
-    // const canStart = Date.now() > 1685210400000 && Date.now() < 1686420000000;
-    const canStart = true;
-    const isAdmin = user.discordId === '191495299884122112';
-    if (!isAdmin && !canStart) {
-        return {
-            status: 'UNAVAILABLE',
+    if (!isEligible(user.discordId)) {
+        return createError({
+            statusCode: 403,
             message: 'The game is not available at this time.',
-        };
+        });
     }
 
     const playerSession = await PLAYERS.get(user.discordId, { type: 'json' }) as PrivateGameSession;
@@ -45,6 +42,7 @@ export default defineEventHandler(async (event) => {
         ip: headers['cf-connecting-ip'],
         name: user.name,
         bonus: 0,
+        bonusComment: undefined,
         discordId: user.discordId,
     };
 

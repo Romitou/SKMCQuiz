@@ -2,11 +2,19 @@ import { createError, defineEventHandler } from 'h3';
 import type { PrivateGameQuestion, PrivateGameSession, SummaryAnswer, SummaryQuestion } from '../../../typings/game';
 import { getUser } from '../../core/auth';
 import { getPrivateQuestion } from '../../core/questions';
+import { Summary } from '../../../typings/game';
+import { canSummary } from '../../core/game';
 
 export default defineEventHandler(async (event) => {
     const user = await getUser(event);
     const PLAYERS: KVNamespace = event.context.cloudflare.env.players;
-    const QUESTIONS: KVNamespace = event.context.cloudflare.env.questions;
+
+    if (!canSummary(user.discordId)) {
+        return createError({
+            statusCode: 403,
+            message: 'The summary is not available at this time.',
+        });
+    }
 
     const playerSession = await PLAYERS.get(user.discordId, { type: 'json' }) as PrivateGameSession;
     if (!playerSession) {
@@ -25,9 +33,9 @@ export default defineEventHandler(async (event) => {
 
     const questions: SummaryQuestion[] = [];
 
-    let level = 1;
+    let i = 1;
     for (const [questionId, answerId] of Object.entries(playerSession.answers)) {
-        const question = await getPrivateQuestion(event, questionId, level++);
+        const question = await getPrivateQuestion(event, questionId, i++);
         if (!question)
             continue;
         let userScore;
@@ -57,8 +65,11 @@ export default defineEventHandler(async (event) => {
 
     const responseData = {
         cachedAt: new Date().toISOString(),
+        score: playerSession.score,
+        bonus: playerSession.bonus,
+        bonusComment: playerSession.bonusComment,
         questions: questions,
-    };
+    } as Summary;
 
     response = new Response(JSON.stringify(responseData), {
         headers: {

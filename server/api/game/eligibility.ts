@@ -1,6 +1,7 @@
 import { defineEventHandler } from 'h3';
 import { getUser } from '../../core/auth';
 import type { PrivateGameSession } from '../../../typings/game';
+import { canSummary, isEligible } from '../../core/game';
 
 export default defineEventHandler(async (event) => {
     const user = await getUser(event);
@@ -21,19 +22,23 @@ export default defineEventHandler(async (event) => {
             };
         }
     } else {
-        // const canStart = Date.now() > 1685210400000 && Date.now() < 1686420000000;
-        const canStart = true;
-        const isAdmin = user.discordId === '191495299884122112';
-        if (!isAdmin && !canStart) {
+        if (isEligible(user.discordId)) {
             return {
-                status: 'UNAVAILABLE',
-                message: 'The game is not available at this time.',
+                status: 'ELIGIBLE',
+                message: 'You are eligible to start a game.',
+            };
+        }
+
+        if (canSummary(user.discordId)) {
+            return {
+                status: 'SUMMARY',
+                message: 'The summary is available.',
             };
         }
 
         return {
-            status: 'ELIGIBLE',
-            message: 'You are eligible to start a game.',
+            status: 'UNAVAILABLE',
+            message: 'The game is not available at this time.',
         };
     }
 });
