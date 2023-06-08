@@ -1,4 +1,4 @@
-import { createError, defineEventHandler } from 'h3';
+import { createError, defineEventHandler, getRequestURL } from 'h3';
 import type { PrivateGameQuestion, PrivateGameSession, SummaryAnswer, SummaryQuestion } from '../../../typings/game';
 import { getUser } from '../../core/auth';
 
@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
         });
     }
 
-    const cache = await caches.open('summaries');
+    const cache = await caches.open(`https://quiz.skript-mc.fr/api/game/summary?discordId=${playerSession.discordId}`);
     let response = await cache.match(playerSession.discordId);
     if (response) {
         return response;
