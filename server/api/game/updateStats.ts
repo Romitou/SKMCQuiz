@@ -107,7 +107,7 @@ export default defineEventHandler(async (event) => {
                 continue;
             console.log('question found');
 
-            question.totalResponseTime += lastTiming - timing;
+            question.totalResponseTime += timing - lastTiming;
             lastTiming = timing;
             console.log('question.totalResponseTime += lastTiming - timing');
 
@@ -132,12 +132,12 @@ export default defineEventHandler(async (event) => {
         const totalAnswers = question.answers.reduce((a, b) => a + b.count, 0);
 
         question.answers = question.answers.map((a) => {
-            a.answerPercentage = Math.round((a.count / totalAnswers) * 100);
+            a.answerPercentage = Math.round((a.count / totalAnswers) * 100 * 100) / 100;
             return a;
         });
 
         question.averageResponseTime = Math.round(question.totalResponseTime / totalAnswers);
-        question.averageScore = Math.round(question.totalScore / totalAnswers);
+        question.averageScore = Math.round((question.totalScore / totalAnswers) * 100) / 100;
 
         if (!questionsByLevel[question.level])
             questionsByLevel[question.level] = [];
