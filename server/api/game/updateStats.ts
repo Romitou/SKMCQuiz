@@ -54,17 +54,21 @@ export default defineEventHandler(async (event) => {
     console.log('Step 3')
 
     for (const player of players) {
+        console.log('=====================');
         let i = 1;
         for (const [questionId, answerId] of Object.entries(player.answers)) {
             const question = questions.find((q) => q.id === questionId);
             if (!question)
                 continue;
+            console.log('question found');
 
             const answer = question.answers.find((a) => a.id === answerId);
             if (!answer)
                 continue;
+            console.log('answer found');
 
             answer.count++;
+            console.log('answer.count++');
 
             question.answers = question.answers.map((a) => {
                 if (a.id === answerId)
@@ -72,15 +76,18 @@ export default defineEventHandler(async (event) => {
 
                 return a;
             });
+            console.log('question.answers.map');
 
             const score = getLevelScore(i++);
             question.score = score;
 
             if (answerId === question.correctAnswerId) {
                 question.totalScore += score;
+                console.log('question.totalScore += score');
             } else {
                 const toRemove = Math.floor(score / 2);
                 question.totalScore -= toRemove;
+                console.log('question.totalScore -= toRemove');
             }
 
             questions = questions.map((q) => {
@@ -89,16 +96,20 @@ export default defineEventHandler(async (event) => {
 
                 return q;
             });
+            console.log('questions.map');
         }
 
+        console.log('*** timings ***');
         let lastTiming = player.startedAt;
         for (const [questionId, timing] of Object.entries(player.timings)) {
             const question = questions.find((q) => q.id === questionId);
             if (!question)
                 continue;
+            console.log('question found');
 
             question.totalResponseTime += lastTiming - timing;
             lastTiming = timing;
+            console.log('question.totalResponseTime += lastTiming - timing');
 
             questions = questions.map((q) => {
                 if (q.id === questionId)
@@ -106,6 +117,7 @@ export default defineEventHandler(async (event) => {
 
                 return q;
             });
+            console.log('questions.map');
         }
     }
 
@@ -115,6 +127,7 @@ export default defineEventHandler(async (event) => {
     for (const question of questions) {
         if (!questionsByLevel[question.level])
             questionsByLevel[question.level] = [];
+        console.log(question);
 
         const totalAnswers = question.answers.reduce((a, b) => a + b.count, 0);
 
