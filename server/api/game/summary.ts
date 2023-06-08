@@ -1,4 +1,4 @@
-import { createError, defineEventHandler, getRequestURL } from 'h3';
+import { createError, defineEventHandler } from 'h3';
 import type { PrivateGameQuestion, PrivateGameSession, SummaryAnswer, SummaryQuestion } from '../../../typings/game';
 import { getUser } from '../../core/auth';
 
@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
     const cache = await caches.open('summaries');
     let response = await cache.match(`https://quiz.skript-mc.fr/api/game/summary?discordId=${playerSession.discordId}`);
     if (response) {
-        return response;
+        return await response.json() as { cachedAt: string; questions: SummaryQuestion[] };
     }
 
 
@@ -53,17 +53,19 @@ export default defineEventHandler(async (event) => {
         } as SummaryQuestion);
     }
 
-    response = new Response(JSON.stringify({
+    const responseData = {
         cachedAt: new Date().toISOString(),
         questions: questions,
-    }), {
+    };
+
+    response = new Response(JSON.stringify(responseData), {
         headers: {
             'Content-Type': 'application/json',
             'Cache-Control': 'public, max-age=86400',
         },
     });
 
-    await cache.put(`https://quiz.skript-mc.fr/api/game/summary?discordId=${playerSession.discordId}`, response.clone());
+    await cache.put(`https://quiz.skript-mc.fr/api/game/summary?discordId=${playerSession.discordId}`, response);
 
-    return await response.json();
+    return responseData;
 });
