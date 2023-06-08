@@ -15,8 +15,8 @@ export default defineEventHandler(async (event) => {
         });
     }
 
-    const cache = await caches.open(`https://quiz.skript-mc.fr/api/game/summary?discordId=${playerSession.discordId}`);
-    let response = await cache.match(playerSession.discordId);
+    const cache = await caches.open('summaries');
+    let response = await cache.match(`https://quiz.skript-mc.fr/api/game/summary?discordId=${playerSession.discordId}`);
     if (response) {
         return response;
     }
@@ -63,7 +63,7 @@ export default defineEventHandler(async (event) => {
         },
     });
 
-    await cache.put(playerSession.discordId, response.clone());
+    await cache.put(`https://quiz.skript-mc.fr/api/game/summary?discordId=${playerSession.discordId}`, response.clone());
 
     return response;
 });
