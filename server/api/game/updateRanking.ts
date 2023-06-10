@@ -1,5 +1,5 @@
 import { defineEventHandler, getHeaders, H3Event } from 'h3';
-
+import { isEligible } from '../../core/game';
 export default defineEventHandler(async (event) => {
     const headers = getHeaders(event);
     const authorization = headers['authorization'];
@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
             'Authorization': botAuthorization,
         },
         body: JSON.stringify({
-            embeds: await createRanking(event, false),
+            embeds: await createRanking(event, !isEligible('0')),
         }),
     });
 
