@@ -1,7 +1,7 @@
 export default {
-    admins: [
-        '191495299884122112',
-    ],
+    admins: [],
+
+
     eligibility: {
         enabled: true,
         start: 1686248197000,
