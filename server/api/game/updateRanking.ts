@@ -130,15 +130,15 @@ export async function createRanking(event: H3Event, showScores: boolean = false)
                 },
                 {
                     name: `🥇 Catégorie or`,
-                    value: `*(entre ${maxGoldScore} et ${minGoldScore} points)*\n${goldString}`,
+                    value: `*(entre ${minGoldScore} et ${maxGoldScore} points)*\n${goldString}`,
                 },
                 {
                     name: `🥈 Catégorie argent`,
-                    value: `*(entre ${maxSilverScore} et ${minSilverScore} points)*\n${silverString}`,
+                    value: `*(entre ${minSilverScore} et ${maxSilverScore} points)*\n${silverString}`,
                 },
                 {
                     name: `🥉 Catégorie bronze`,
-                    value: `*(entre ${maxBronzeScore} et ${minBronzeScore} points)*\n${bronzeString}`,
+                    value: `*(entre ${minBronzeScore} et ${maxBronzeScore} points)*\n${bronzeString}`,
                 },
                 {
                     name: `📦 Participants`,
