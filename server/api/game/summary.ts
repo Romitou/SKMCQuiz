@@ -6,22 +6,25 @@ import { Summary } from '../../../typings/game';
 import { canSummary } from '../../core/game';
 
 export default defineEventHandler(async (event) => {
-    const user = await getUser(event);
     const PLAYERS: KVNamespace = event.context.cloudflare.env.players;
 
     const headers = getHeaders(event);
     const authorization = headers['authorization'];
     const isAdmin = authorization === 'zxgYYjyHK7Gu7sjfTGropV9cAieik299FYbouYq4px6wq3zJJuMLkHnJWtFXugaw';
 
+    let user;
+    if (!isAdmin) {
+        user = await getUser(event);
+        if (!canSummary(user.discordId)) {
+            return createError({
+                statusCode: 403,
+                message: 'The summary is not available at this time.',
+            });
+        }
+    }
+
     const query = getQuery(event);
     const discordId = query['discordId'] as string;
-
-    if (!isAdmin && !canSummary(user.discordId)) {
-        return createError({
-            statusCode: 403,
-            message: 'The summary is not available at this time.',
-        });
-    }
 
     const playerSession = await PLAYERS.get(isAdmin ? discordId : user.discordId, { type: 'json' }) as PrivateGameSession;
     if (!playerSession) {
