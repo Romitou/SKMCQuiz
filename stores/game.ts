@@ -94,7 +94,7 @@ export const useGameStore = defineStore('game', {
         async fetchSummary() {
             const authStore = useAuthStore();
 
-            this.summary = await axios.get('/api/game/summary', {
+            this.summary = await axios.get('https://quiz.skript-mc.fr/api/game/summary', {
                 headers: {
                     Authorization: `Bearer ${authStore.authToken}`,
                 },
