@@ -11,6 +11,13 @@ export default defineEventHandler(async (event) => {
 
     if (playerProfile) {
         if (playerProfile.startedAt + 1000 * 60 < Date.now()) {
+            if (canSummary(user.discordId)) {
+                return {
+                    status: 'SUMMARY',
+                    message: 'The summary is available.',
+                };
+            }
+
             return {
                 status: 'ALREADY_PLAYED',
                 message: 'You have already played a game.',
@@ -26,13 +33,6 @@ export default defineEventHandler(async (event) => {
             return {
                 status: 'ELIGIBLE',
                 message: 'You are eligible to start a game.',
-            };
-        }
-
-        if (canSummary(user.discordId)) {
-            return {
-                status: 'SUMMARY',
-                message: 'The summary is available.',
             };
         }
 
