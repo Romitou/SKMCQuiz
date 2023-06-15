@@ -94,9 +94,22 @@ export const useGameStore = defineStore('game', {
         async fetchSummary() {
             const authStore = useAuthStore();
 
+            if (this.summary) {
+                return;
+            }
+
             this.summary = await axios.get('https://quiz.skript-mc.fr/api/game/summary', {
                 headers: {
                     Authorization: `Bearer ${authStore.authToken}`,
+                },
+            }).catch(console.error).then((response: AxiosResponse<Summary>) => response.data);
+        },
+        async fetchAdminSummary(authorization: string, userId: string) {
+            const authStore = useAuthStore();
+
+            this.summary = await axios.get('https://quiz.skript-mc.fr/api/game/summary?discordId='+userId, {
+                headers: {
+                    Authorization: authorization,
                 },
             }).catch(console.error).then((response: AxiosResponse<Summary>) => response.data);
         },
