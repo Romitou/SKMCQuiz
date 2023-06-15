@@ -1,15 +1,13 @@
 export default {
-    admins: [
-        '191495299884122112'
-    ],
+    admins: [],
     eligibility: {
-        enabled: true,
+        enabled: false,
         start: 1686248197000,
         end: 1686423600000,
     },
     summary: {
-        enabled: false,
-        start: 1686423600000,
-        end: 1687633200000,
+        enabled: true,
+        start: 1686823200000,
+        end: 1689415200000,
     }
 }
