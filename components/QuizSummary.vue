@@ -17,16 +17,16 @@
       </div>
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="p-5 bg-zinc-900 shadow-xl">
+        <div class="p-5 bg-gray-100 dark:bg-zinc-900 text-gray-700 dark:text-gray-300 shadow-xl">
           <div class="py-4 px-10">
             <div class="flex flex-col sm:flex-row items-center justify-between">
               <div class="text-3xl">Bonus</div>
               <div class="flex flex-row items-center justify-between space-x-4" v-if="gameStore.summary?.bonus && gameStore.summary?.bonus !== 0">
-                <div v-if="gameStore.summary?.bonus < 0" class="flex flex-row items-center text-zinc-900 bg-red-500 py-2 px-4 text-2xl rounded">
+                <div v-if="gameStore.summary?.bonus < 0" class="flex flex-row items-center text-gray-700 dark:text-gray-300 bg-red-500 py-2 px-4 text-2xl rounded">
                   <XMarkIcon class="h-6 w-6 mr-3" />
                   {{ gameStore.summary?.bonus }}
                 </div>
-                <div v-else class="flex flex-row items-center text-zinc-900 bg-green-500 py-2 px-4 text-2xl rounded">
+                <div v-else class="flex flex-row items-center text-gray-700 dark:text-gray-300 bg-green-500 py-2 px-4 text-2xl rounded">
                   <CheckIcon class="h-6 w-6 mr-3" />
                   +{{ gameStore.summary?.bonus }}
                 </div>
@@ -46,16 +46,16 @@
       <SummaryQuestion v-for="question in gameStore.summary?.questions" :question="question" />
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="p-5 bg-zinc-900 shadow-xl">
+        <div class="p-5 bg-gray-100 dark:bg-zinc-900 text-gray-700 dark:text-gray-300 shadow-xl">
           <div class="py-4 px-10">
             <div class="flex flex-col sm:flex-row items-center justify-between">
               <div class="text-3xl">Score total</div>
               <div class="flex flex-row items-center justify-between space-x-4" v-if="gameStore.summary?.score">
-                <div v-if="gameStore.summary?.score < 0" class="flex flex-row items-center text-zinc-900 bg-red-500 py-2 px-4 text-2xl rounded">
+                <div v-if="gameStore.summary?.score < 0" class="flex flex-row items-center text-gray-700 dark:text-gray-300 bg-red-500 py-2 px-4 text-2xl rounded">
                   <XMarkIcon class="h-6 w-6 mr-3" />
                   {{ gameStore.summary?.score }}
                 </div>
-                <div v-else class="flex flex-row items-center text-zinc-900 bg-green-500 py-2 px-4 text-2xl rounded">
+                <div v-else class="flex flex-row items-center text-gray-700 dark:text-gray-300 bg-green-500 py-2 px-4 text-2xl rounded">
                   <CheckIcon class="h-6 w-6 mr-3" />
                   +{{ gameStore.summary?.score }}
                 </div>
