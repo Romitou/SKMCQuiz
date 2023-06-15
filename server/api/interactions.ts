@@ -80,6 +80,40 @@ router.post('/', defineEventHandler(async (event) => {
                     embeds: await createRanking(event, true),
                 }
             }
+        } else if (custom_id === 'summary') {
+            const { jwtSecret } = useRuntimeConfig();
+            const token = await jwt.sign({
+                discordId: body.member.user.id,
+                name: body.member.user.username,
+                avatar: body.member.user.avatar,
+            }, jwtSecret);
+
+            return {
+                type: 4,
+                data: {
+                    embeds: [
+                        {
+                            title: 'Skript-MC Quiz 2023',
+                            description: '🕹️ Vous avez participé à l\'événement et vous souhaitez consulter le résumé détaillé de vos questions et de vos réponses ? Cliquez sur le bouton ci-dessous afin d\'ouvrir notre application et consulter les résultats.',
+                            color: 2988250,
+                        },
+                    ],
+                    components: [
+                        {
+                            type: MessageComponentTypes.ACTION_ROW,
+                            components: [
+                                {
+                                    type: MessageComponentTypes.BUTTON,
+                                    style: ButtonStyleTypes.LINK,
+                                    label: 'Consulter le résumé',
+                                    url: `https://quiz.skript-mc.fr/?token=${token}`,
+                                },
+                            ],
+                        },
+                    ],
+                    flags: 64,
+                },
+            };
         }
     }
 
