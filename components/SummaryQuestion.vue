@@ -40,7 +40,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-9 w-full mt-10">
           <div
               v-for="(answer, i) in question.answers"
-              :class="`${colors[i]} ${answer.image ? 'py-1 px-3': 'py-5 px-7'} text-gray-800 dark:text-gray-200 text-xl w-full rounded-xl shadow-lg flex flex-col items-center justify-center ring-2 ring-offset-4 ring-offset-gray-100 dark:ring-offset-zinc-900 ${answer.correct ? 'ring-green-500' : (answer.selected ? 'ring-red-500' : 'ring-zinc-900')}`"
+              :class="`${colors[i]} ${answer.image ? 'py-1 px-3': 'py-5 px-7'} text-gray-800 dark:text-gray-200 text-xl w-full rounded-xl shadow-lg flex flex-col items-center justify-center ring-2 ring-offset-4 ring-offset-gray-100 dark:ring-offset-zinc-900 ${answer.correct ? 'ring-green-500' : (answer.selected ? 'ring-red-500' : 'ring-gray-100 dark:ring-zinc-900')}`"
           >
             <div class="text-center">{{ answer.content }}</div>
             <div class="text-lg pt-2">({{ answer.answerPercentage }}%)</div>
