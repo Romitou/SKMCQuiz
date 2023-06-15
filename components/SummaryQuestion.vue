@@ -1,25 +1,25 @@
 <template>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-  <div class="p-5 bg-zinc-900 shadow-xl">
+  <div class="p-5 bg-gray-100 dark:bg-zinc-900 text-gray-700 dark:text-gray-300 shadow-xl">
     <div class="py-4 px-10">
       <div class="flex flex-col sm:flex-row items-center justify-between">
         <div class="text-3xl">Question {{ question.level }}</div>
         <div class="flex flex-row items-center justify-between space-x-4">
-          <div class="flex flex-row items-center justify-center py-2 px-4 text-2xl">
+          <div class="flex flex-row items-center justify-center py-2 px-4 text-2xl text-gray-700 dark:text-gray-300">
             <ClockIcon class="h-6 w-6 mr-3" />
             {{ toSeconds(question.responseTime) }}s
           </div>
-          <div v-if="question.userScore < 0" class="flex flex-row items-center text-zinc-900 bg-red-500 py-2 px-4 text-2xl rounded">
+          <div v-if="question.userScore < 0" class="flex flex-row items-center text-gray-700 dark:text-gray-300 bg-red-500 py-2 px-4 text-2xl rounded">
             <XMarkIcon class="h-6 w-6 mr-3" />
             {{ question.userScore }}
           </div>
-          <div v-else class="flex flex-row items-center text-zinc-900 bg-green-500 py-2 px-4 text-2xl rounded">
+          <div v-else class="flex flex-row items-center text-gray-700 dark:text-gray-300 bg-green-500 py-2 px-4 text-2xl rounded">
             <CheckIcon class="h-6 w-6 mr-3" />
             +{{ question.userScore }}
           </div>
         </div>
       </div>
-      <div class="flex flex-col sm:flex-row pb-5 sm:space-x-4">
+      <div class="flex flex-col sm:flex-row pb-5 sm:space-x-4 text-gray-700 dark:text-gray-300">
         <div class="text-xl">Moyennes : </div>
         <div class="flex flex-row items-center text-lg">
           <ClockIcon class="h-5 w-5 mr-3" />

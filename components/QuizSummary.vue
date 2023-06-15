@@ -5,7 +5,7 @@
     </div>
     <div v-else class="py-5 space-y-6">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="bg-gray-100 p-5 dark:bg-zinc-900 text-gray-700 dark:text-gray-300 rounded-lg shadow-lg">
+        <div class="bg-gray-100 dark:bg-zinc-900 text-gray-700 dark:text-gray-300 p-5 rounded-lg shadow-lg">
           <div class="flex flex-col py-3 px-5">
             <h1 class="text-3xl font-bold">Résumé de votre quiz</h1>
             <div class="pt-6 space-y-3">
