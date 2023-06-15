@@ -26,7 +26,6 @@ export interface SummaryQuestion {
     image: boolean;
     averageResponseTime: number;
     averageScore: number;
-    correctAnswerId: string;
     answers: SummaryAnswer[];
 }
 
@@ -35,6 +34,8 @@ export interface SummaryAnswer {
     content: string;
     image: boolean;
     answerPercentage: number;
+    correct: boolean;
+    selected: boolean;
 }
 
 export interface PrivateGameAnswer {

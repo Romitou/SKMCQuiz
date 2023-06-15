@@ -59,15 +59,17 @@ export default defineEventHandler(async (event) => {
             content: question.content,
             level: question.level,
             userScore: userScore,
-            correctAnswerId: question.correctAnswerId,
             averageResponseTime: question.averageResponseTime,
             averageScore: question.averageScore,
+            image: question.image,
             answers: question.answers.map((answer) => {
                 return {
                     id: answer.id,
                     content: answer.content,
                     image: answer.image,
                     answerPercentage: answer.answerPercentage,
+                    correct: answer.id === question.correctAnswerId,
+                    selected: answer.id === answerId,
                 } as SummaryAnswer;
             }),
         } as SummaryQuestion);
