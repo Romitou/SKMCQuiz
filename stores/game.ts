@@ -3,7 +3,7 @@ import { useAuthStore } from '~/stores/auth';
 import type { GameSession, Summary } from '~/typings/game';
 import axios, { AxiosResponse } from 'axios';
 
-type EligibilityStatus = 'ELIGIBLE' | 'IN_PROGRESS' | 'ALREADY_PLAYED';
+type EligibilityStatus = 'ELIGIBLE' | 'IN_PROGRESS' | 'ALREADY_PLAYED' | 'SUMMARY';
 
 type EligibilityResponse = {
     status: EligibilityStatus;

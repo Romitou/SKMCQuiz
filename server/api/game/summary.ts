@@ -44,8 +44,9 @@ export default defineEventHandler(async (event) => {
     const questions: SummaryQuestion[] = [];
 
     let i = 1;
+    let lastTiming = playerSession.startedAt;
     for (const [questionId, answerId] of Object.entries(playerSession.answers)) {
-        const question = await getPrivateQuestion(event, questionId, i++);
+        const question = await getPrivateQuestion(event, questionId, i);
         if (!question)
             continue;
         let userScore;
@@ -54,11 +55,20 @@ export default defineEventHandler(async (event) => {
         } else {
             userScore = -Math.floor(question.score / 2);
         }
+
+        // Get the response time
+        const rawTiming = playerSession.timings[i];
+        const timing = rawTiming - lastTiming;
+        lastTiming = rawTiming;
+
+        i++;
+
         questions.push({
             id: question.id,
             content: question.content,
             level: question.level,
             userScore: userScore,
+            responseTime: timing,
             averageResponseTime: question.averageResponseTime,
             averageScore: question.averageScore,
             image: question.image,

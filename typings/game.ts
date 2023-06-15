@@ -24,6 +24,7 @@ export interface SummaryQuestion {
     level: number;
     userScore: number;
     image: boolean;
+    responseTime: number;
     averageResponseTime: number;
     averageScore: number;
     answers: SummaryAnswer[];

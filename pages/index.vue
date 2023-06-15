@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-screen dark:bg-zinc-900 skmc-bg">
+  <div class="flex flex-col h-screen dark:bg-zinc-900 skmc-bg overflow-y-scroll">
     <Navbar />
     <template v-if="gameStore.inGame">
       <QuizBar
@@ -17,6 +17,7 @@
         </div>
         <NotAuthorized v-else-if="authStore.user === null" />
         <GameEnd v-else-if="gameStore.endScreen" />
+        <QuizSummary v-else-if="gameStore.eligibility === 'SUMMARY'" />
         <AlreadyPlayed v-else-if="gameStore.eligibility === 'ALREADY_PLAYED'" />
         <Unavailable v-else-if="gameStore.eligibility === 'UNAVAILABLE'" />
         <GameOnboarding v-else-if="gameStore.eligibility === 'ELIGIBLE'" />
@@ -30,11 +31,13 @@ import { useAuthStore } from '~/stores/auth';
 import { useGameStore } from '~/stores/game';
 import QuizBar from '~/components/QuizBar.vue';
 import NotAuthorized from '~/components/NotAuthorized.vue';
-import { useRoute } from '#app';
+import { useRoute, useRouter } from '#app';
 import { onMounted, onUnmounted } from '@vue/runtime-core';
 import GameOnboarding from '~/components/GameOnboarding.vue';
 import AlreadyPlayed from '~/components/AlreadyPlayed.vue';
 import Navbar from '~/components/Navbar.vue';
+import Question from '~/components/Question.vue';
+import QuizSummary from '~/components/QuizSummary.vue';
 
 const route = useRoute();
 const authStore = useAuthStore();
