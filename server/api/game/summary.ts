@@ -57,7 +57,7 @@ export default defineEventHandler(async (event) => {
         }
 
         // Get the response time
-        const rawTiming = playerSession.timings[i];
+        const rawTiming = playerSession.timings[questionId];
         const timing = rawTiming - lastTiming;
         lastTiming = rawTiming;
 
