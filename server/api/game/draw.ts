@@ -69,18 +69,16 @@ export default defineEventHandler(async (event) => {
     const embeds = [
         {
             title: '🌟 Catégorie Étoile',
-            color: 16777215,
+            color: 16749824,
             description: 'Consultez ci-dessous le résultat du tirage au sort pour la catégorie **Étoile**.',
             fields: [
                 {
                     name: '🗂️ Éligibles',
                     value: starPlayers.map(([name]) => `${name === starWinner[0] ? `**${name}**` : name}`).join(', '),
-                    inline: true,
                 },
                 {
                     name: '🥇 Gagnant',
                     value: `${starWinner[0]} (${starWinner[1]})`,
-                    inline: true,
                 }
             ],
             footer: {
@@ -95,12 +93,10 @@ export default defineEventHandler(async (event) => {
                 {
                     name: '🗂️ Éligibles',
                     value: goldPlayers.map(([name]) => `${name === goldWinner[0] ? `**${name}**` : name}`).join(', '),
-                    inline: true,
                 },
                 {
                     name: '🥇 Gagnant',
                     value: `${goldWinner[0]} (${goldWinner[1]})`,
-                    inline: true,
                 }
             ],
             footer: {
@@ -115,12 +111,10 @@ export default defineEventHandler(async (event) => {
                 {
                     name: '🗂️ Éligibles',
                     value: silverPlayers.map(([name]) => `${name === silverWinner[0] ? `**${name}**` : name}`).join(', '),
-                    inline: true,
                 },
                 {
                     name: '🥇 Gagnant',
                     value: `${silverWinner[0]} (${silverWinner[1]})`,
-                    inline: true,
                 }
             ],
             footer: {
