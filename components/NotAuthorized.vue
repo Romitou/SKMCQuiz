@@ -2,10 +2,10 @@
   <div class="bg-gray-100 p-5 dark:bg-zinc-800 text-gray-700 dark:text-gray-300 rounded-lg shadow-lg">
     <div class="hero-content">
       <div class="max-w-3xl">
-        <h1 class="text-3xl font-bold">Session invalide</h1>
+        <h1 class="text-3xl font-bold">Session invalide ou expirée</h1>
         <div class="pt-6 space-y-3">
-          <p>👋 Bienvenue sur l'application Skript-MC Quiz, événement organisé par Skript-MC afin de proposer à ses membres de tester leurs connaissances sur Skript.</p>
-          <p>🔒 Afin de participer à cet événement, vous devez obligatoirement passer par notre communauté Discord afin de recevoir un lien personnalisé permettant de vous connecter à l'application.</p>
+          <p>Bienvenue sur l'application de quiz.</p>
+          <p>Pour participer à l'événement, vous devez utiliser le lien d'accès sécurisé généré par le bot de votre communauté.</p>
         </div>
       </div>
     </div>
@@ -13,8 +13,10 @@
 </template>
 
 <script>
+export default {
+  name: "NotAuthorized"
+}
 </script>
 
 <style scoped>
-
 </style>

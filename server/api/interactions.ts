@@ -32,7 +32,8 @@ router.post('/', defineEventHandler(async (event) => {
     } else if (type === 2 || type === 3) {
         const { name, custom_id } = data;
         const config = useRuntimeConfig();
-        const appUrl = (config.public?.appUrl as string) || 'https://quiz.skript-mc.fr';
+        const appUrl = (config.public?.appUrl as string) || 'http://localhost:3000';
+        const appName = (config.public?.appName as string) || 'Quiz';
 
         if (name === 'play' || custom_id === 'play') {
             const token = await jwt.sign({
@@ -46,8 +47,8 @@ router.post('/', defineEventHandler(async (event) => {
                 data: {
                     embeds: [
                         {
-                            title: 'Skript-MC Quiz 2023',
-                            description: '🕹️ Préparez-vous à tester vos connaissances et à répondre à un **maximum de questions dans un temps imparti** ! Installez-vous confortablement et préparez-vous à un enchaînement de questions les unes plus dures que les autres... dans l\'objectif de **marquer un maximum de points et obtenir la première place** !\n\n📱 Bien que le quiz soit réalisable et adapté à tous les appareils, nous vous conseillons d\'**utiliser un appareil disposant d\'un grand écran** (ordinateur, tablette...). Nous vous recommandons d\'avoir une **connexion internet stable**.\n\n🚀 Si vous êtes prêts à vous confronter à notre quiz et aux membres de la communauté, il ne vous suffit plus qu\'à cliquer sur le bouton ci-dessous qui vous **connectera automatiquement à notre application internet**.',
+                            title: appName,
+                            description: 'Préparez-vous à tester vos connaissances en répondant à un maximum de questions dans un temps imparti d\'une minute !\n\nPour un meilleur confort, nous vous conseillons d\'utiliser un appareil avec un grand écran et une connexion internet stable.\n\nCliquez sur le bouton ci-dessous pour accéder directement à l\'application.',
                             color: 2988250,
                         },
                     ],
@@ -68,7 +69,7 @@ router.post('/', defineEventHandler(async (event) => {
                 },
             };
         } else if (name === 'ranking') {
-            const isAuthorized = (appConfig.admins as string[]).includes(body.member.user.id) || body.member.user.id === '191495299884122112';
+            const isAuthorized = (appConfig.admins as string[]).includes(body.member.user.id);
             if (!isAuthorized) {
                 return {
                     type: 4,
@@ -96,8 +97,8 @@ router.post('/', defineEventHandler(async (event) => {
                 data: {
                     embeds: [
                         {
-                            title: 'Skript-MC Quiz 2023',
-                            description: '🕹️ Vous avez participé à l\'événement et vous souhaitez consulter le résumé détaillé de vos questions et de vos réponses ? Cliquez sur le bouton ci-dessous afin d\'ouvrir notre application et consulter les résultats.',
+                            title: appName,
+                            description: 'Vous avez participé à l\'événement et vous souhaitez consulter le résumé détaillé de votre session ? Cliquez sur le bouton ci-dessous pour ouvrir vos résultats.',
                             color: 2988250,
                         },
                     ],

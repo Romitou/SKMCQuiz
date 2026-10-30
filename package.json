@@ -1,8 +1,8 @@
 {
-  "name": "skript-mc-quiz",
+  "name": "quiz-time",
   "version": "1.0.0",
   "private": true,
-  "description": "Event-driven serverless quiz web application built for the Skript-MC community with Nuxt 3, Cloudflare Workers/KV, and Discord authentication.",
+  "description": "Event-driven serverless quiz web application built with Nuxt 3, Cloudflare Workers/KV, and Discord authentication.",
   "author": "Romain (Romitou) <romitou@protonmail.com>",
   "license": "MIT",
   "scripts": {

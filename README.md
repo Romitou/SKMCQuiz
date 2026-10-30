@@ -1,4 +1,4 @@
-# Skript-MC Quiz
+# Quiz Time
 
 [![Nuxt 3](https://img.shields.io/badge/Nuxt-3.5.0-00DC82?logo=nuxtdotjs&logoColor=white)](https://nuxt.com/)
 [![Vue 3](https://img.shields.io/badge/Vue-3.x-4FC08D?logo=vuedotjs&logoColor=white)](https://vuejs.org/)
@@ -7,7 +7,7 @@
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.x-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Application web de quiz chronométré développée pour la communauté [Skript-MC](https://skript-mc.fr). Elle tourne sur l'infrastructure serverless de Cloudflare (Pages et KV) avec un backend Nuxt 3 / Nitro, et s'intègre directement à Discord pour l'authentification et l'attribution des récompenses.
+Application web de quiz chronométré personnalisable et prête au déploiement pour n'importe quelle communauté. Elle s'exécute sur l'infrastructure serverless de Cloudflare (Pages et KV) avec un backend Nuxt 3 / Nitro, et s'intègre nativement à Discord pour l'authentification et l'annonce des classements.
 
 ---
 
@@ -27,9 +27,9 @@ Application web de quiz chronométré développée pour la communauté [Skript-M
 
 ## Présentation du projet
 
-À l'occasion d'un événement communautaire réunissant plusieurs centaines de membres, l'objectif était de proposer un quiz compétitif d'une minute sur Skript et Minecraft, accessible sans friction et capable d'encaisser les pics de trafic lors des annonces Discord.
+Ce projet permet d'organiser des compétitions de quiz chronométrées pour une communauté en ligne, sans friction d'inscription et avec une infrastructure légère capable d'encaisser les pics de trafic.
 
-### Les contraintes initiales :
+### Les principes clés :
 - **Connexion en un clic** : les participants cliquent sur un bouton sous le message Discord du bot. Un token JWT signé est généré et ouvre l'application web directement authentifiée avec leur compte Discord.
 - **Tenue de charge sans serveur dédié** : l'hébergement repose entièrement sur Cloudflare Workers et KV, ce qui évite d'avoir à dimensionner ou maintenir un serveur classique.
 - **Équité du jeu** : les réponses correctes restent sur le serveur, les scores sont calculés côté backend et les temps de réponse sont enregistrés pour repérer d'éventuels scripts de triche.
@@ -125,8 +125,8 @@ quiz-time/
 
 ### 1. Cloner le dépôt
 ```bash
-git clone https://github.com/Romitou/skript-mc-quiz.git
-cd skript-mc-quiz
+git clone https://github.com/Romitou/quiz-time.git
+cd quiz-time
 ```
 
 ### 2. Installer les dépendances
@@ -158,10 +158,13 @@ Toutes les options de configuration sont décrites dans [`.env.example`](.env.ex
 
 | Variable | Rôle | Exemple |
 | :--- | :--- | :--- |
-| `NUXT_PUBLIC_APP_URL` | URL publique de l'application (pour les liens générés dans Discord) | `https://quiz.skript-mc.fr` |
+| `NUXT_PUBLIC_APP_NAME` | Nom public du quiz affiché dans l'interface et les embeds | `Community Quiz` |
+| `NUXT_PUBLIC_APP_URL` | URL publique de l'application (pour les liens générés dans Discord) | `https://quiz.example.com` |
 | `NUXT_JWT_SECRET` | Clé secrète pour signer les jetons de session des joueurs | `openssl rand -base64 48` |
 | `NUXT_DISCORD_PUBLIC_KEY` | Clé publique de l'application Discord pour valider les interactions | Clé hexadécimale |
 | `NUXT_ADMIN_TOKEN` | Jeton secret protégeant les routes d'administration | `openssl rand -base64 48` |
+| `DISCORD_RANKING_CHANNEL_ID` | Identifiant du salon Discord où poster le classement | Chaîne numérique |
+| `DISCORD_RANKING_MESSAGE_ID` | Identifiant du message Discord à mettre à jour | Chaîne numérique |
 | `CLOUDFLARE_ACCOUNT_ID` | Identifiant du compte Cloudflare pour le déploiement | Clé hexadécimale |
 
 ---

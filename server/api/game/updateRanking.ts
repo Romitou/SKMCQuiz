@@ -14,8 +14,19 @@ export default defineEventHandler(async (event) => {
         });
     }
 
+    const config = useRuntimeConfig();
+    const channelId = config.discordRankingChannelId;
+    const messageId = config.discordRankingMessageId;
+
+    if (!channelId || !messageId) {
+        throw createError({
+            statusCode: 400,
+            message: 'Discord ranking channelId or messageId is not configured.',
+        });
+    }
+
     // Send the ranking to the bot
-    const response = await fetch('https://discord.com/api/v9/channels/1111338857930162257/messages/1112010204209479690', {
+    const response = await fetch(`https://discord.com/api/v9/channels/${channelId}/messages/${messageId}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
@@ -93,36 +104,36 @@ export async function createRanking(event: H3Event, showScores: boolean = false)
     let otherString = otherPlayers.map(([name, score]) => displayRow(name, score, showScores)).join('\n');
     if (otherString.length === 0) otherString = 'Personne :(';
 
+    const config = useRuntimeConfig();
+    const appName = config.public?.appName || 'Quiz';
+
     return [
         {
-            title: 'Classement du Skript-MC Quiz 2023',
-            description: '🚀 Retrouvez ci-dessous le classement de tous les joueurs ayant participé au Skript-MC Quiz 2023. Les scores ne sont pas rendus publics avant la fin de l\'événement.\n\n📈 Attention : les catégories de récompenses étant dépendantes de la position des joueurs dans le classement, il est fortement possible que votre position évolue au cours de l\'événement.',
+            title: `Classement du ${appName}`,
+            description: `Retrouvez ci-dessous le classement de tous les participants. Les scores finaux ne sont affichés qu'à la clôture de l'événement.\n\nLes catégories de récompenses dépendant du classement relatif des joueurs, les positions peuvent évoluer tout au long de la session.`,
             color: 2988250,
-            image: {
-                url: 'https://quiz.skript-mc.fr/prizes.png'
-            }
         },
         {
             color: 2988250,
             fields: [
                 {
-                    name: `🏅 Catégorie étoile`,
+                    name: `Catégorie Étoile`,
                     value: `*(plus de ${minStarScore} points)*\n${starString}`,
                 },
                 {
-                    name: `🥇 Catégorie or`,
+                    name: `Catégorie Or`,
                     value: `*(entre ${minGoldScore} et ${maxGoldScore} points)*\n${goldString}`,
                 },
                 {
-                    name: `🥈 Catégorie argent`,
+                    name: `Catégorie Argent`,
                     value: `*(entre ${minSilverScore} et ${maxSilverScore} points)*\n${silverString}`,
                 },
                 {
-                    name: `🥉 Catégorie bronze`,
+                    name: `Catégorie Bronze`,
                     value: `*(entre ${minBronzeScore} et ${maxBronzeScore} points)*\n${bronzeString}`,
                 },
                 {
-                    name: `📦 Participants`,
+                    name: `Participants`,
                     value: `*(moins de ${maxOtherScore} points)*\n${otherString}`,
                 }
             ]

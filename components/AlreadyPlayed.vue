@@ -4,8 +4,8 @@
       <div class="max-w-3xl">
         <h1 class="text-3xl font-bold">Quiz déjà réalisé</h1>
         <div class="pt-6 space-y-3">
-          <p>👋 Bienvenue sur l'application Skript-MC Quiz, événement organisé par Skript-MC afin de proposer à ses membres de tester leurs connaissances sur Skript.</p>
-          <p>❌ Il n'est pas possible de démarrer un nouveau quiz : nos systèmes indiquent que vous l'avez déjà réalisé une fois. Afin de connaître votre classement, rendez-vous sur notre communauté Discord.</p>
+          <p>Bienvenue sur l'application de quiz en ligne.</p>
+          <p>Il n'est pas possible de démarrer une nouvelle session : votre participation a déjà été enregistrée pour cet événement. Les classements et résultats seront publiés une fois la session terminée.</p>
         </div>
       </div>
     </div>
@@ -19,5 +19,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

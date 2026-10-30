@@ -70,12 +70,6 @@ export const useGameStore = defineStore('game', {
             }).catch(console.error).then((response: AxiosResponse<GameSession>) => response.data);
 
             this.loading = false;
-
-            // if (!useNuxtApp)
-            //     return;
-            //
-            // const { $toast } = useNuxtApp();
-            // $toast.info(`Réponse enregistrée. On passe à la question n°${this.session.answeredQuestions} !`);
         },
         async resumeGame() {
             const authStore = useAuthStore();
@@ -98,16 +92,14 @@ export const useGameStore = defineStore('game', {
                 return;
             }
 
-            this.summary = await axios.get('https://quiz.skript-mc.fr/api/game/summary', {
+            this.summary = await axios.get('/api/game/summary', {
                 headers: {
                     Authorization: `Bearer ${authStore.authToken}`,
                 },
             }).catch(console.error).then((response: AxiosResponse<Summary>) => response.data);
         },
         async fetchAdminSummary(authorization: string, userId: string) {
-            const authStore = useAuthStore();
-
-            this.summary = await axios.get('https://quiz.skript-mc.fr/api/game/summary?discordId='+userId, {
+            this.summary = await axios.get(`/api/game/summary?discordId=${encodeURIComponent(userId)}`, {
                 headers: {
                     Authorization: authorization,
                 },

@@ -1,10 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     app: {
-        rootId: '__skmc',
+        rootId: '__quiz',
         buildAssetsDir: '/build/',
         head: {
-            title: 'Skript-MC Quiz',
+            title: process.env.NUXT_PUBLIC_APP_NAME || 'Community Quiz',
             link: [
                 { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
                 { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
@@ -13,8 +13,8 @@ export default defineNuxtConfig({
                 { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#5bbad5' },
             ],
             meta: [
-                { name: 'apple-mobile-web-app-title', content: 'Skript-MC Quiz' },
-                { name: 'application-name', content: 'Skript-MC Quiz' },
+                { name: 'apple-mobile-web-app-title', content: process.env.NUXT_PUBLIC_APP_NAME || 'Community Quiz' },
+                { name: 'application-name', content: process.env.NUXT_PUBLIC_APP_NAME || 'Community Quiz' },
             ]
         }
     },
@@ -31,10 +31,13 @@ export default defineNuxtConfig({
     ],
     runtimeConfig: {
         public: {
-            appUrl: process.env.NUXT_PUBLIC_APP_URL || 'https://quiz.skript-mc.fr',
+            appName: process.env.NUXT_PUBLIC_APP_NAME || 'Community Quiz',
+            appUrl: process.env.NUXT_PUBLIC_APP_URL || 'http://localhost:3000',
         },
         jwtSecret: process.env.NUXT_JWT_SECRET || '',
         discordPublicKey: process.env.NUXT_DISCORD_PUBLIC_KEY || '',
         adminToken: process.env.NUXT_ADMIN_TOKEN || '',
+        discordRankingChannelId: process.env.DISCORD_RANKING_CHANNEL_ID || '',
+        discordRankingMessageId: process.env.DISCORD_RANKING_MESSAGE_ID || '',
     }
 })
